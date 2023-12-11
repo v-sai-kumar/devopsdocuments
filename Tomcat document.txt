@@ -1,0 +1,73 @@
+Tomcat
+
+Citi Bank
+WebSphere Application Server (WAS) -> IBM WebSphere Liberty Profile
+
+HDFC
+Weblogic->BEA --> Oracle
+JBoss/Wildfly-> Redhat --> ibm --> supports war and ear
+Apache Tomcat -> Apache Software Fundation
+Tomcat is an OS, Java based, Web App server.
+Node JS s/w -> run the Node JS App
+Python sw->run the Python apps
+.Net --> IIS
+
+Tomcat Server Directory Structure
+
+bin:
+sh startup.sh -> MAC/Linux startup.bat -> Windows
+sh shutdown.sh --> MAC/Linux
+shutdown.bat --> Windows
+catalina.sh->start/stop the tomcat server
+sh catalina.sh stop
+catalina.bat
+version.sh
+version.bat
+
+conf:
+server.xml
+tomcat-users.xml
+
+lib:
+jars
+Logs: 
+manager.log
+hostmanager.log
+catalina.out
+Localhost.log
+
+webapps:
+5 default apps
+
+work:
+App Working files 
+
+temp:
+Temporary files
+
+Default ports
+SSH-22
+FTP - 21
+HTTP - 80
+HTTPS-443
+SMTP-25
+MySQL 3306xml mcat -8080
+wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.59/bin/apache-tomcat-9.
+
+ln -s /opt/apache-tomcat-9.0.59/bin/startup.sh /usr/bin/startTomcat ln -s /opt/apache-tomcat-9.0.59/bin/shutdown.sh /usr/bin/stopTomcat
+
+http://65.0.109.190:8080 
+ctrl shift deleted --> to delete cookies
+
+conf
+tomcat-users.xml
+context.xml  --> used to give access to manager /host  consoles
+
+mithuntechnologies ->
+manager-gui: Server Status and Manager App
+admin-gui: Host Manager
+Tomcat/Jboss --> Sama machine
+
+server.xml give 
+1000
+0- 1023-> Reserved

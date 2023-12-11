@@ -1,0 +1,166 @@
+Nexus artifact reposoritory
+Artifactory Repos
+Nexus
+JFrog Artifatory
+Build Artifcats/Packages
+Nexus: Is an OS, Java Based Artifactory repo manager.
+It can  be used to store the build artifcats and retrive the build artifcats when 
+ever we required.
+
+2 Editions
+Nexus OSS --> Open Source Software
+Nexus Pro Enterprise Editions
+Java -> Jar,war, ear
+
+Docker->Docker Images
+Node Js->tar
+conf
+etc
+nexus-default.properties
+Nexus
+Java 1.8 Or Java 8
+Nexus 3.x  
+Your admin user password is located in /opt/sonatype-work/nexus3/admin.password on 
+the server.
+
+Nexus 3.15.x admin admin123
+d9eb7b2b-6663-476e-8188-367ce3711118
+quay.io
+I How to create the repos
+Integrate Repo with Maven Java Projects
+Releases Repos
+Snapshot Repos
+8081
+
+9980
+
+DevOps Master P.DAMDAMIST
+
+Azure Services.tit
+
+Jan29th Batch2022 tet-Desktop
+
+->/mithuntechnologies
+
+http://13.233.9.210:9980/mithuntechnologies
+service
+Practice....
+Nexus Repo details...
+pom.xml
+<distributionManagment>
+http://13.233.9.210:9980/mithuntechnologies/repository/facebook-releases/
+http://13.233.9.210:9980/mithuntechnologies/repository/facebook-snapshot/
+</distributionManagment>
+
+Nexus Credentials.....
+<servers>
+<server>
+<id>nexus</id>
+<username>admin</username>
+<password>admin123</password>
+</server>
+</servers>
+Remote repo
+
+18 Jar files
+
+vn deploy:deploy-file
+
+Remote Repo URL
+
+pom.xml
+
+<repositoies>
+<repository>
+<id>nexus</id>
+<name>MSS Remote Repo </name>
+<url>http://13.233.9.210:9980/mithuntechnologies/repository/mss-remote-repo/</url>
+ <repository> 
+</repositoies>
+
+<dependency>
+<groupId>com.mss</groupId>
+<artifactId>mail</artifactId>
+<version>1.0.0</version>
+</dependency>
+Remote repo 
+Host Repo
+Local repo
+
+Proxy Repo
+Add in pom.xml repositories tag and in conf  settings.xml  add in mirror tag url
+http://13.233.9.210:9980/mithuntechnologies/repository/mss-proxy-repo/
+
+Group Repo
+Add in pom.xml repositories tag and in conf  settings.xml  add in mirror tag url
+http://13.233.9.210:9980/mithuntechnologies/repository/mss-group-repo/
+
+In repository section allow redeploy maven wil redeploy the package and overwrite 
+the existing package
+
+to see content in repos --> browser server contents -->browse-->see repos access 
+files and war files 
+401 --> chek the credientals 
+403--> check the user access
+400--> unauthorized
+
+maven repos
+--------------
+local repo
+central repo
+remote repo
+proxy repo
+group repo
+
+remote repo
+--------------
+-->crate a repo-->maven host2-->version policy-- mixed
+1.browser server contents --> go to repo -->upload component-->war/jar file--
+>grpid(com.companyname.project name)-->artifact id (own name)-->version  1.0.0
+2.uploading artifacts into remote repo is devops job 
+3.remote repo url add in pom.xml file in repository tag 
+<depencienes>..<depencienes>
+4.blocked mirror for repos error 
+we have not given in maven project conf /vi settings.xml file update-->url,id
+so update in settings.xml file
+
+admin tasks
+-----------
+1.repository
+2.secuity
+3.support
+4.system
+
+01. repository
+1.create a new repo
+2.blob stores --> we use to store images and files 
+3.cleanup policy -->we use to remove unused old packages when the policy mathes 
+autoamtically it will delete the old artifacts
+after preview repo --> go to repository section u can see clean up policy select 
+that poicy from avaialbe and attach(apply) to the artifact
+after that go to syatem tab -->we can see clean up policies there
+
+
+0.2 security
+1.users--> used to create a users and give credientals 
+provide nx admin and nx anonymoius access so user have admin access also 
+
+2.roles-->used to give privilages to specific users 
+assign specifcic roles to the users based on requirement
+
+3.anonymous user access --> we can see repos without login also 
+
+4.LDAP --> lightweight directory access protocol
+some companies use  AD(active directory)
+
+5.SSL Certificates --> http to https we can use to convert (CA is popular compnay 
+will provide ssl certifiactes)
+
+0.3 support
+1.logging -->we can see all logs 
+2.log viewer -->wwe can download all logs 
+3.status-->nexus server health status we can see avialble cpu , adimin cerdientals
+4.support ZIP --> nexus server info 
+5.system info -->nexus  full info 
+
+0.4 system

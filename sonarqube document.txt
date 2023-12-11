@@ -1,0 +1,108 @@
+-->Introduction
+SonarQube (previously called Sonar is an open source software quality management tool.
+It will continuously analyze and measures quality of the source code.
+
+I will generate the report if any issues in html format/PDF format.
+
+It is a web based tool supports multiple languages (Java, C#, JS...) It will support multi OS platform (Windows, MAC, Linux...).
+
+It will support multiple databases (MySQL, Oracle, Microsoft SQL Server, PostgreSQL.)
+
+Supports multiple browsers (IE, Microsoft Edge, FF, Chrome, Safari)
+
+Sonar qube uses -->It will identifies the below category of issues.
+
+Duplicated code
+Coding standards
+Unit tests
+Complex code
+Comments
+Potential Bugs
+Architecture & Design
+
+Maven/Tomcat/-> Developed using Java - supports only Java PL
+SonarQube/Nexus/Jenkins -> Developed using this Java -> Supports multiple  Langs..
+
+-->Relational DBS
+Oracle 
+my sql
+ post gear
+ MS SQL Server
+DB2
+is SQL Database?
+SELECT FROM EMPLOYEE;
+rows and columns  
+Table's format
+
+NO SQL DBS/ NON RELATIONAL DBS
+MONGO DB
+Cloudant
+JSon format
+document == Table
+
+H2 is inbuilt sonar qube  db server
+
+--> Pre Requisition  for installing sonar qube
+Java oracle
+Wget Sonar repo 
+Sonar qube zip file 
+Install sonarqube
+
+
+-->Architecture
+Sonarqube scanner /sonarqube/report generate /errors send to developer
+
+
+1) Vaulnarabilities
+2) Bugs
+3) Code Smells
+
+-->Installation 
+Install SonarQube Server
+admin admin  = username password 
+
+Tomcat/Jboss/Wildfly/Jenkins 8080 I
+Nexus/ Jfrog artifactiry --> 8081
+SonarQube -> 9000
+MySQL DB 3306
+
+In pom.xml update ip address  , token
+<sonar.login> tag use for token update
+
+mvn package 
+plugin name  is first sonar
+mvn sonar: sonar  --> sonarqube scan will perform 
+Goal name  is 2nd sonar
+
+HCL App Scan  --> vulnarbilities 
+
+DevSecOps  
+Sonar qube token generate by administration in gui of sonarqube console
+
+23cd175450678669303a31b50bbd9f186683e6d9
+
+SONAR QUBE DASHBOARD TABS :
+
+projects -->contain all projects list
+issues --> will show all issues in the code developer need to fix those issues
+rules --> to generate the report it will check all the rules and should be satisfied
+quality profiles: [default / custom]
+
+10 rules / 30 rules like this we use. Devops engineer only create the quality profiles
+
+login soanar console --> create custom quality profile --> create click -->new profile
+
+(name own)-->language (own) -->create click after login quliy profile we see rules --> click on activate more -->activate rules
+
+what ever we want --> make as default now project will use this qulaity profiel only
+
+quality profiles --> collection of rules we are going to apply while execting the sonarqube code 
+
+quality gates --> collection of conditions which we are going to apply while execting the sonarqube code
+
+login sonarqube --> add quality gate-->name own -->add condition-->give metrics and error %-->if that condition failes project will fail Executing
+
+Rules
+Quality Profiles
+Quality Gates
+Users Creation

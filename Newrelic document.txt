@@ -1,0 +1,38 @@
+Newrelic
+Application Monitoring Tools
+Nagios
+Grafana
+Promethoes
+AppDynamics
+NewRelic
+Datadog
+Zabbix
+
+
+Log Monitoring Tools
+Splunk
+Elk stack
+Logentries
+newrelic is used to monitor the application tool and infrastructure monitoring restapi is avialble 90% sla
+
+using restapi we will monitor application
+
+using synthetic monitors we can monitor applications types of monitors
+
+1.ping monitor
+2. simple  monitor--> used to monitor the website details like resource breakdown and timelines --> we have to give application url instead of api url
+3. scripted browser--> we will write script in this we will use when we want to navigate to the website
+4.API test
+
+1.ping monitor
+give url details of rest api
+url was given by development team
+select monitoring application locations
+*select shedule will run and monitor app and give any errors 5 mins /15 mins/1 min we can
+select based on requirement
+*if latency of the app is low create the server in that particular region so customers can fastly access application
+*if we have any errors it will send notifiactions to slack channel and email also we can
+configure --> go to general in that monitor change string name (welcome oage starting name) to some other name so we will get response validation errors
+api test we will provide an credientails to the application
+
+newrelic will support infrastructure monitoring also go to infrastructure tab and tools what we want

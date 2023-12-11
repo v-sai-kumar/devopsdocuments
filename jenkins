@@ -1,0 +1,76 @@
+Plugin management 
+..................................
+var/lib/jenkins-->nextbuildnumber ->file (plugin also we can use) deploy to container (used for tomcat, jboss), weblogic (WAS -> weblogic application support)
+websphere Deployer--> to deploy IBM WebSphere Application Server, IBM WebSphere Portal and IBM WebSphere Liberty Profile
+maven integration
+jacoco-->to generate code coverage of java projects
+ssh agent
+email notifiaction
+audit trail->details of which user trigger, delete, created the job all actions is saved in this
+sonarqube scanner--> directly configure in jenkins dashboard
+job config history --> which user config, what cofig, every thing history is stored in this we can restore back old configs also by using restore project option in this plugin
+schedule build
+blue ocean--> completely changes the gui console
+pulbish over ssh -->
+ThinBackup
+Build Name Setter--> custom build name we can set in place of secquence no's
+restart
+safeRestart -->will complete all running jobs and restart (we can use plugin also)
+extrenal plugins istalltion (browse)
+advanced -->used to install external plugins
+change default port no
+......................................
+from 8080 to 9398
+cd usr/lib/systemd/system/jenkins.service --> 
+change port No
+systemctl daemon-reload
+Systemctl restart jenkins
+
+jenkins security
+
+create users-->type of access to users-->we give project based authorizatin stategey, LDAP--> view access, build access, admin access, edit view access
+
+provide specific job level access
+
+go to admin access go to particular job enable project based secuirty (we see only when project based authorizatin stategey is given )
+click on add user add user name give required access to them 
+
+project level access 
+......................
+same as job level access but we give all Access
+
+ back up
+.............
+thin backup --> used to take jobs,plugins, files etc.. backup for every minute
+if we backup now it will create a folder within that minute if we click n no of times on specific minute it will overwrite thats it
+back up types--> full backup every time it will take backup, differntial backup when ever changes are there then onlu backup will take
+real time backup sst for every 1 hr and 50 backups we take (count may change vary on requirements)
+
+Scripted pipeline
+Declarative pipeline
+
+Build with Parameter
+____________________
+facebook-dev
+facebook-qa
+facebook-prod
+$(params.Propertyname}
+java -jar jenkins-cli.jar -auth mithuntechnologies:11ffceb8ea06e043896476ea48c8d46ad8-s
+
+11ffceb8ea06e043896476ea48c8d46ad8
+
+java -jar jenkins-cli.jar -auth mithuntechnologies:11ffceb8ea06e043896476ca48c8d46ad8 -s
+
+http://3.110.42.155:9980 -webSocket list-jobs
+
+Migration just copy past old jenkins directory path and configuration files in new jenkins server 
+(alternative)
+job import plugin we have we can import plugin and add  new jenkins directories path to  old jenkins server 
+
+CICD for Node JS Shared Libs
+
+
+
+Upstrem Jobs DownStream Jobs
+
+Slack Notification

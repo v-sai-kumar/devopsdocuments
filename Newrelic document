@@ -13,16 +13,16 @@ Log Monitoring Tools
 Splunk
 Elk stack
 Logentries
-newrelic is used to monitor the application tool and infrastructure monitoring restapi is avialble 90% sla
+newrelic is used to monitor the application tool and infrastructure monitoring restapi is avialble 90% SLA
 
 using restapi we will monitor application
 
 using synthetic monitors we can monitor applications types of monitors
 
-1.ping monitor
+1. ping monitor
 2. simple  monitor--> used to monitor the website details like resource breakdown and timelines --> we have to give application url instead of api url
 3. scripted browser--> we will write script in this we will use when we want to navigate to the website
-4.API test
+4. API test
 
 1.ping monitor
 give url details of rest api

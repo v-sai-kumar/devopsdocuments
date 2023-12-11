@@ -58,7 +58,7 @@ Gradle -> build.gradle
 
 facebook.amo
 
-Sample content in pom.xxml
+Sample content in pom.xml
 -----------------------------------------------
 Parent Tag/Root tag
 

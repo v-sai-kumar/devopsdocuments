@@ -2,7 +2,8 @@ Terraform is an open-source, infrastructure as code software (laC) tool, created
 Infrastructure as code is the process of managing infrastructure in a file or files, rather than manually configuring resources in a user interface (UI).
 Here resources are nothing but virtual machines, Elastic IP, Security Groups, Network Interfaces...
 Terraform code is written in the HashiCorp Configuration Language (HCL) in files with the extension .tf
-Terraform allows users to use HashiCorp Configuration Language (HCL) to create the files containing definitions of their desired resources on almost any provider (AWS, GCP, Azure, Digital Ocean, OpenStack, etc) and automates the creation of those resources at the time of apply.
+Terraform allows users to use HashiCorp Configuration Language (HCL) to create the files containing definitions of their desired resources on almost any 
+provider (AWS, GCP, Azure, Digital Ocean, OpenStack, etc) and automates the creation of those resources at the time of apply.
 Terraform
 Terraform is an Open source , IAC, HAsicrop and written in Go Programming Lang.
 Automate the Infrastructure-> Terraform
@@ -15,13 +16,15 @@ DIYy2nAka5INqFyKaHPoX21zg43y6KK7m0GT7AxP
 
 Terraform Command's :
 
-terraform init: The terraform init command is used to initialize a working directory containing Terraform configuration files. This is the first command that should be run after writing a new Terraform configuration.
+terraform init: The terraform init command is used to initialize a working directory containing Terraform configuration files. This is the first command that
+should be run after writing a new Terraform configuration.
 
 terraform fmt: The terraform fmt command is used to rewrite Terraform configuration files to a canonical format and style.
 
 terraform validate: The terraform validate command validates whether a configuration is syntactically valid or not.
 
-terraform plan: The terraform plan command is used to create an execution plan. This command is a convenient way to check whether the execution plan for a set of changes matches your expectations without making any changes to real resources or to the state.
+terraform plan: The terraform plan command is used to create an execution plan. This command is a convenient way to check whether the execution plan for a 
+set of changes matches your expectations without making any changes to real resources or to the state.
 
 terraform apply: terraform apply to actually create the infrastructure on AWS.
 terraform apply -auto-approve
@@ -41,7 +44,10 @@ AWS Credentials .....
 
 Shared Credentials file
 
-You can use an AWS credentials file to specify your credentials. The default location is $HOME/.aws/credentials on Linux and OS X, or "%USERPROFILE%\.aws\credentials" for Windows users. If we fail to detect credentials inline, or in the environment, terraform will check this location. You can optionally specify a different location in the configuration by providing the shared_credentials_file attribute, or in the environment with the AWS_SHARED_CREDENTIALS_FILE variable. This method also supports a profile configuration and matching AWS_PROFILE environment variable:
+You can use an AWS credentials file to specify your credentials. The default location is $HOME/.aws/credentials on Linux and OS X,
+or "%USERPROFILE%\.aws\credentials" for Windows users. If we fail to detect credentials inline, or in the environment, terraform will check this location. 
+You can optionally specify a different location in the configuration by providing the shared_credentials_file attribute, or in the environment with 
+the AWS_SHARED_CREDENTIALS_FILE variable. This method also supports a profile configuration and matching AWS_PROFILE environment variable:
 
  provider "aws" {
 
@@ -69,22 +75,26 @@ output "instance_ip_addr" { value = aws_instance.server.private_ip
 }
 Security Group's
 -------------------------
-A security group acts as a virtual firewall for your instance to control incoming and outgoing traffic. Inbound rules control the incoming traffic to your instance, and outbound rules control the outgoing traffic from your instance. ... Security groups are associated with network interfaces.
+A security group acts as a virtual firewall for your instance to control incoming and outgoing traffic. Inbound rules control the incoming traffic to your 
+instance, and outbound rules control the outgoing traffic from your instance. ... Security groups are associated with network interfaces.
 
 IAM Used
 ------------------
-AWS Identity and Access Management (IAM) enables you to manage access to AWS services and resources securely. Using IAM, you can create and manage AWS users and groups, and use permissions to allow and deny their access to AWS resources. IAM is a feature of your AWS account offered at no additional charge.
+AWS Identity and Access Management (IAM) enables you to manage access to AWS services and resources securely. Using IAM, you can create and manage AWS users 
+and groups, and use permissions to allow and deny their access to AWS resources. IAM is a feature of your AWS account offered at no additional charge.
 
 Simple Storage Service (S3)
 --------------------
 S3 stands for Simple Storage Service.
-Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and performance.
+Amazon Simple Storage Service (Amazon S3) is an object storage service that offers industry-leading scalability, data availability, security, and 
+performance.
 It is Object-based storage, i.e., you can store the images, word files, pdf files, etc.
 In S3 Data is organized in the form of buckets. A bucket is like a folder available in S3 that stores the files.
 
 Elastic ip
 ---------------
-An Elastic IP address is a reserved public IP address that you can assign to any EC2 instance in a particular region, until you choose to release it. To allocate an Elastic IP address to your account in a particular region.
+An Elastic IP address is a reserved public IP address that you can assign to any EC2 instance in a particular region, until you choose to release it. 
+To allocate an Elastic IP address to your account in a particular region.
 
 When you associate an Elastic IP address with an EC2 instance, it replaces the default public IP address.
 

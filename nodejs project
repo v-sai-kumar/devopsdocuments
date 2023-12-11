@@ -1,0 +1,110 @@
+Java - Maven Build Tool                Node Js
+----------------------                 ------- 
+pom.xml                               package.json -  Node Modules
+
+mvn clean package                     npm install
+
+pom.xml - SOnarQube                    sonar-project.js
+
+mvn clean sonar:sonar                  npm run sonar (OR) node sonar-project.js
+
+node_modules
+
+pom.xml --> nexus repos                 package.json --> nexus repos
+
+settings.xml --> nexus credentilas      .npmrc --> nexus credentials -- base64 
+
+mvn deploy                               npm publish
+
+Scripted pipeline for node js 
+-----------------------------
+
+node{
+
+  stage('Checkout Code')
+  {
+   git credentialsId: '12993250-1ff3-40a0-9978-794e74dcf712', url: 'https://github.com/MithunTechnologiesDevOps/nodejs-app-mss.git'
+  }
+  
+  stage('Build')
+  {
+  nodejs(nodeJSInstallationName: 'nodejs16.7.0'){
+  sh "npm install"
+  }
+  }
+  
+  stage('SonarQubeReportExecution')
+  {
+  nodejs(nodeJSInstallationName: 'nodejs16.7.0'){
+  sh "npm run sonar"
+  }
+  }
+  
+   stage('UploadArtifactintoNexus')
+   {
+   sh 'npm publish'
+   }
+  
+  
+   stage('RunTheNodeJsApp')
+   {
+    sh 'node app.js'
+   }
+  
+}
+
+
+
+http://65.2.123.87:9981/mithuntechnologies
+
+echo -n 'admin:admin123' | openssl base64
+
+
+npm login --registry=http://13.233.36.149:8081/repository/nodejs-repo/
+
+
+
+Shared Libs
+------------
+
+
+@Library('msssharedlibs') _   (we have to give branch name of shared library correctly)
+
+pipeline{
+    
+    agent any
+	
+	tools{
+	 maven 'maven3.8.2'
+	}
+    
+    stages{
+        
+        stage('CheckOutCode'){
+            
+            steps{
+                
+                git branch: 'development', credentialsId: '12993250-1ff3-40a0-9978-794e74dcf712', url: 'https://github.com/MithunTechnologiesDevOps/maven-web-application.git'
+            }
+        }
+		
+		stage('Build'){
+		 steps{
+		  stages("Build")
+		 }
+		}
+		stage('Execute SOanrQube Report'){
+		 steps{
+		  stages("SonarQube Report")
+		 }
+		}
+    }
+}
+
+
+Resume Preparation
+------------------
+
+ROles and Responsibilities
+
+Agile Topics

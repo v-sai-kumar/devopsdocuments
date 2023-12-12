@@ -17,8 +17,10 @@ origin  https://github.com/v-sai-kumar/maven-standalone-application.git (push)
 git show commitid --> show commit details 
 git show --pretty="" --name-only commitid --> displays file name only 
 git revert  commitid --> updated content , files going to delete in particular commit id
-branch -d(delete),branch -m newbranchname(modify)  --> to delete branch or modify we use 
-
+git branch -d(delete),branch -m newbranchname(modify)  --> to delete branch or modify we use 
+git merge branchname --> used to merge one branch into another 
+git stash -->Saved working directory and index state WIP on master: 627d552 trigger 
+git stash apply -->
 
 
 git add . , * , filename --> used to bring from staging area to indexing area

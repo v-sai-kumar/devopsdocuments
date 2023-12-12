@@ -21,11 +21,11 @@ Helloworld.class ---> Byte Code
 Maven Dir Structures
 -------------------------------------
 apache-maven-3.8.4-bin.zip
-boot:
+boot: booting data for app
 bin: Binary files --> mvn
-conf:
-settings.xml
-lib:
+conf: configuration files 
+settings.xml --> here only nexus credientials are given 
+lib: library files which supports by default 
 jar files
 
 Maven Installations
@@ -33,7 +33,7 @@ Maven Installations
 Maven 3.8.4
 Java 8 or Java 1.8
 JDK Java Development kit
- JRE Java Runtime Environment
+JRE Java Runtime Environment
 javac
 java -version
 javac -version
@@ -41,12 +41,11 @@ javac  command not found...
 mvn-version
 ssh -i "devopsjanbatch.pem"ec2-user@ec2-3-111-169-63.ap-south-1.compute.amazonaws.com
 
-/opt/apache-maven-3.8.4-> Home directory
+/opt/apache-maven-3.8.4  ---> Home directory
 
-export M2_HOME=/opt/apache-maven-3.8.4 export PATH=$PATH: $M2_HOME/bin
+export M2_HOME=/opt/apache-maven-3.8.4 export PATH=$PATH: $M2_HOME/bin  
 
-export GRADLE_HOME/Users/mithunreddy/MithunTechnologies/Softwares/Running/gradle-6.6.1
- export PATH=$PATH$GRADLE_HOME/bin
+export GRADLE_HOME=/Users/mithunreddy/MithunTechnologies/Softwares/Running/gradle-6.6.1 export PATH=$PATH$GRADLE_HOME/bin
 
 JAVA HOME
 M2_HOME
@@ -122,6 +121,7 @@ The path to the local repository maven will use to store artifacts.
 2 .Maven Central Repository
 The central repository is the repository provided by the Maven community. "It contains a large repository of commonly used libraries. This repository comes into play when Maven does not find libraries in the local repository.
 The central repository can be found at: http://search.maven.org/.
+
 3.Remote Repository
 Enterprises usually maintain their own repositories for the libraries that are being used for the project. These differ from the local repository; a repository is maintained on a separate server, different from the developer's machine and is accessible within the organization.
 Ex : in organization 
@@ -142,7 +142,7 @@ compile: It will compile the source code and junit test cases code.
 test: It will run the unit test cases
 package: It will creates the package. (jar/war/ear)
 install: It will store the build atrifact/ package in Maven Local Repo.
-deploy: It will store the build artifact into remote rpo.
+deploy: It will store the build artifact into remote repo like nexus ...
 
 mvn clean package  
 700  Junit test cases.

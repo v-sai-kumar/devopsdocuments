@@ -1,0 +1,52 @@
+git -->distributed  version control system 
+
+working environments--> dev ,qa,uat,sit(system integration testing ),performance testing
+
+Topics --> Git init,add,status,commit -m "msg",log,push origin,branch,branch branchname,
+checkout branchname,clone,remote add fb(alias name) githuburl,remote -v,show commitid,show --pretty="" --name-only commitid,clean.clean -f,reset(SA TO WA),reset filename,
+revert commitid (updated content , files going to delete in particular commit id),branch -d,branch -m newbranchname(modify),merge branchname,stash,stash apply,stash pop,
+stash drop,pull origin , rebase vs merge
+
+
+git commit -m "feature branch msg wrong commit" -->commit files which are in staging area 
+git commit --amend -m "now updated commit message"--> changes most recent commit only 
+
+NOTE : fb is remote repo url alias name
+
+Difference of branch
+--------------------
+git diff branchname(comparision with current  branches)
+git diff stag branchname(comparision b/w 2 branches )
+git branch -r (display remote repo branches)
+git branch -a(display all branches)
+git branch -d branchname (delete a branch)
+git push fb -all(push all local repos to remote)
+git push fb dev qa (specific branches only move to remote repo)
+
+Difference of Tags
+-------------------
+git tag (display all tags)
+git tag tagname(create tag)
+git push fb tag tagname(local to remote repo pushing)
+git tag -d tagname (delete a tag)
+
+stash 
+-----
+git stash (pause)
+git stash apply(resume)
+
+rebase vs merge
+---------------
+we can integrate changes from one branch to another by using rebase and merge cmnds
+dev to master when we use merge means it will not display commitid only single commit id we can see
+dev to master when we use merge means it will  display commitids history
+
+.git ignore
+------------
+we can place files in this folder it will not commit the files 
+
+readme.md 
+----------
+it is a file for understanding our repository we write some content in it like what steps to perform in this repository   
+
+github-->repository management tool 

@@ -11,7 +11,7 @@ Java code
 Web Applications (war -> Web Archive) 
 Java Code + Web Content (HTML/CSS/Java Script/XML/images) 
 war = jar files + web content
-Enterprise Applications (ear Enterprise Archive) Multiple modules ...
+Enterprise Applications (ear Enterprise Archive) Multiple modules ....
 ear = war + jar files + resource files 
 JVM- Java Virtual Machine
 HelloWorld.java -> Source Code

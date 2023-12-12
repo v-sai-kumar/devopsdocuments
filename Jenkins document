@@ -55,6 +55,14 @@ facebook-dev
 facebook-qa
 facebook-prod
 $(params.Propertyname}
+
+jenkins commandline interface
+------------------------------
+we can control jenkins from commands only its fast and easy way 
+we have to create  directory and add jenkins jar file 
+we need jenkins-cli.jar file 
+we need to integrate a jenkins for communication 
+so we give credientals and authenticate it 
 java -jar jenkins-cli.jar -auth mithuntechnologies:11ffceb8ea06e043896476ea48c8d46ad8-s
 
 11ffceb8ea06e043896476ea48c8d46ad8
@@ -62,15 +70,28 @@ java -jar jenkins-cli.jar -auth mithuntechnologies:11ffceb8ea06e043896476ea48c8d
 java -jar jenkins-cli.jar -auth mithuntechnologies:11ffceb8ea06e043896476ca48c8d46ad8 -s
 
 http://3.110.42.155:9980 -webSocket list-jobs
+for every job we create a shell script to trigger autimatically based on requirement 
 
-Migration just copy past old jenkins directory path and configuration files in new jenkins server 
+Migration of jenkins 
+--------------------
+just copy past old jenkins directory path and configuration files in new jenkins server so all jobs will apper 
 (alternative)
 job import plugin we have we can import plugin and add  new jenkins directories path to  old jenkins server 
 
 CICD for Node JS Shared Libs
 
-
-
 Upstrem Jobs DownStream Jobs
+-----------------------------
+ex --> we have 3 jobs 
+dev --> upstream job for qa
+qa --> downstream job for dev & upstream job for prod
+prod --> downstream job for qa 
+jenkins GUI -->configure --> check box (build after other projects are build) give which projects are to watch list jobs 
 
 Slack Notification
+--------------------
+we need slack account 
+create a channel in it 
+in jenkins install slack notificationplugin configure slack channel details 
+give for jobs postbuild actions slack notification (check on options we want based on requirement ) so we receive alerts immediately
+

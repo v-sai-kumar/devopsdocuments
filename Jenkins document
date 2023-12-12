@@ -24,7 +24,7 @@ Build Name Setter--> custom build name we can set in place of secquence no's
 restart
 
 safeRestart -->will complete all running jobs and restart (we can use plugin also)
-extrenal plugins istalltion (browse)
+extrenal plugins installation (browse)
 
 advanced -->used to install external plugins
 
@@ -37,6 +37,7 @@ systemctl daemon-reload
 Systemctl restart jenkins
 
 jenkins security
+------------------
 
 create users-->type of access to users-->we give project based authorizatin stategey, LDAP--> view access, build access, admin access, edit view access
 
@@ -53,14 +54,78 @@ same as job level access but we give all Access
 .............
 thin backup --> used to take jobs,plugins, files etc.. backup for every minute
 if we backup now it will create a folder within that minute if we click n no of times on specific minute it will overwrite thats it
-back up types--> full backup every time it will take backup, differntial backup when ever changes are there then onlu backup will take
+back up types--> full backup every time it will take backup, differntial backup when ever changes are there then only backup will take
 real time backup sst for every 1 hr and 50 backups we take (count may change vary on requirements)
 
 Scripted pipeline
 Declarative pipeline
 
+master slave architecture
+--------------------------
+
+1 master node
+
+2 slave nodes
+
+in master node only we install jenkins
+
+in all master and slave nodes we install java to execute jobs and git also
+
+if we run job in slave node code is stored in slave inode only
+
+if we install global tools in master node it is applicable for slave also
+
+slaves and master can we created in different os also it will work
+
+we can give same label name but name of slave should be unique
+
+slave node working direcory creates
+
+remoting  remoting.jar directories we can see  when node succesfully connected tools workspace --> after 1st run of job
+
+
+slave creation
+----------------
+
+install 1gb ram instance
+
+cd/opt/
+
+install open jdk
+
+create slavel directory
+
+go to master node open manage nodes
+
+click newnode give details
+
+remote root directory is newly created slavel directory path to store jobs we give
+
+launch method (via ssh)
+
+host (public ip of slave)
+
+credientals (ssh user with private key (pem file past))
+
+Now run any job in particular slave or labels by givng name by using restrict where the project can be run option in general section remaining all common
+
+but for pipeline projects we give
+
+agent{
+
+label "slave1"
+}
+
 Build with Parameter
 ____________________
+we can build one job on differnt environments by using this 
+we can select diffrent environments and build at a time by using this option we can reduce disk space also 
+In genral ,
+click on this project is parmetiezed
+give build name
+give parmeter type(choice parmeter) add all env like dev ,uat,qa save it
+now we can see build with parameters --> select env to run job 
+
 facebook-dev
 facebook-qa
 facebook-prod

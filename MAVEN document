@@ -163,4 +163,4 @@ maven-web-application.war
  Without war file ear file will.not be there 
 To generate a specific module we can use 
 mvn clean package -pl MavenEnterpriseApp-web
-It will execute only this package and create a .war file
+It will execute only this package and create a .war file 

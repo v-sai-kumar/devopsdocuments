@@ -1,23 +1,33 @@
 Plugin management 
 ..................................
 var/lib/jenkins-->nextbuildnumber ->file (plugin also we can use) deploy to container (used for tomcat, jboss), weblogic (WAS -> weblogic application support)
-websphere Deployer--> to deploy IBM WebSphere Application Server, IBM WebSphere Portal and IBM WebSphere Liberty Profile
-maven integration
+
+websphere Deployer--> to deploy IBM WebSphere Application Server, IBM WebSphere Portal and IBM WebSphere Liberty Profile maven integration
+
 jacoco-->to generate code coverage of java projects
 ssh agent
-email notifiaction
+email notification
+
 audit trail->details of which user trigger, delete, created the job all actions is saved in this
+
 sonarqube scanner--> directly configure in jenkins dashboard
+
 job config history --> which user config, what cofig, every thing history is stored in this we can restore back old configs also by using restore project option in this plugin
 schedule build
+
 blue ocean--> completely changes the gui console
+
 pulbish over ssh -->
 ThinBackup
+
 Build Name Setter--> custom build name we can set in place of secquence no's
 restart
+
 safeRestart -->will complete all running jobs and restart (we can use plugin also)
 extrenal plugins istalltion (browse)
+
 advanced -->used to install external plugins
+
 change default port no
 ......................................
 from 8080 to 9398

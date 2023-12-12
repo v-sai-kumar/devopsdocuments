@@ -4,13 +4,31 @@ working environments--> dev ,qa,uat,sit(system integration testing ),performance
 
 Topics --> Git init,add,status,commit -m "msg",log,push origin,branch,branch branchname,
 checkout branchname,clone,remote add fb(alias name) githuburl,remote -v,show commitid,show --pretty="" --name-only commitid,clean.clean -f,reset(SA TO WA),reset filename,
-revert commitid (updated content , files going to delete in particular commit id),branch -d,branch -m newbranchname(modify),merge branchname,stash,stash apply,stash pop,
+revert commitid (updated content , files going to delete in particular commit id),branch -d(delete),branch -m newbranchname(modify),merge branchname,stash,stash apply,stash pop,
 stash drop,pull origin , rebase vs merge
 
 git init --> initialize empty new directory
+git clone url(gitrepourl) --> clone of remote repo into local repo
+
+git remote add fb(alias name) githuburl --> change url name to shortcut name
+$ git remote -v
+origin  https://github.com/v-sai-kumar/maven-standalone-application.git (fetch)
+origin  https://github.com/v-sai-kumar/maven-standalone-application.git (push)
+git show commitid --> show commit details 
+git show --pretty="" --name-only commitid --> displays file name only 
+git revert  commitid --> updated content , files going to delete in particular commit id
+branch -d(delete),branch -m newbranchname(modify)  --> to delete branch or modify we use 
+
+
+
 git add . , * , filename --> used to bring from staging area to indexing area
 git commit -m "anymsgtypehere" -->it will commit in local repo
-git 
+git log --> will display commit history
+git push origin --> local to remote changes will be pushed 
+git branch branchname --> used to change between branches 
+git branch --> used to display branches
+git checkout branchname --> switch to that branch
+
 git commit -m "feature branch msg wrong commit" -->commit files which are in staging area 
 git commit --amend -m "now updated commit message"--> changes most recent commit only 
 

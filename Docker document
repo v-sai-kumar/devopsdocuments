@@ -1,1 +1,3 @@
 docker is a containerization platform
+container --> container contains everthing which is required to run application like app code , sofwaares + libraries,configurations, ENV,etc..
+Using containeriation we can build , ship(move), & run applications as a container

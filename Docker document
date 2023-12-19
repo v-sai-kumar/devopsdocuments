@@ -1,3 +1,6 @@
 docker is a containerization platform
 container --> container contains everthing which is required to run application like app code , sofwaares + libraries,configurations, ENV,etc..
 Using containeriation we can build , ship(move), & run applications as a container
+containerization platforms /s/w's : Docker,Rocker,podman,container -D,CRI-O 
+main advantage of docker is having very good CLI and API'S to manage conatiners/Images
+

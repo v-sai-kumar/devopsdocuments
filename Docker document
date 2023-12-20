@@ -4,3 +4,17 @@ Using containeriation we can build , ship(move), & run applications as a contain
 containerization platforms /s/w's : Docker,Rocker,podman,container -D,CRI-O 
 main advantage of docker is having very good CLI and API'S to manage conatiners/Images
 
+ImageRegistry/Repo:tag>
+<repo>:<tag>
+
+FROM tomcat:8.8.28-jre8 # Base Image
+COPY target/maven-web-app.war /usr/local/tomcat/webapps/maven-web-application.war
+
+Docker build context or buildContext :<tag>
+directory(folder) we are building the image. All the files and folders which are part of buildcontext will be sent to DockerDaemon by Client.
+docker build -t <ImageTag> <buildContext>
+docker build -f <FileName> -t dockerhandson/maven-web-application:1.
+dockerhandson/maven-web-application:latest
+
+docker push dockerhandson/maven-web-application
+docker pull dockerhandson/maven-web-application

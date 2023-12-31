@@ -18,3 +18,112 @@ dockerhandson/maven-web-application:latest
 
 docker push dockerhandson/maven-web-application
 docker pull dockerhandson/maven-web-application
+Linux Containers
+
+Windows Containers
+-d-Detachedmode
+
+docker run -d-name <containerName> -p <hostPort:containerPort> <Image>
+
+7070:8080
+
+What is port publish/port fowording or port mapping?
+
+3000:9981
+
+node
+
+stage("CheckOutCodeGit")
+
+git branch: 'master', credentialsId: '65fb834f-a83b-4fe7-8e11-686245c47a65', u
+
+}
+
+stage("Build")
+
+sh 'docker build -t dockerhandson/node-js-app:1
+
+stage('Docker push') {
+
+withCredentails (id: 'dockerhubpass', name: 'dockerhubpass')
+
+sh "docker login -u dockdrhandson -p $(dockerhubpass}"
+
+sh docker push dockerhandson/node-js-app:1
+
+}
+
+sshAgent(){}
+}
+Image Commands
+______
+docker build -t <ImageTag> <buildContext>
+ImageTag-><Registry/Repo:tag>
+docker build -t dockerhandsonmaven-web-application:1.
+ecr
+------
+docker build -t 207862045161.dkr.ecr.ap-south-1.amazonaws.com/maven-web-application:
+docker push 287862045161.dkr.ecr.ap-south-1.amazonaws.com/maven-web-application:1.
+287862045161.dkr.ecr.ap-south-1.amazonaws.com/maven-web-application:1
+
+docker push 207862045161.dkr.ecr.ap-south-1.amazonaws.com/maven-web-application:1
+GCR Google Contaienr Regsitry (Google Cloud Platform)
+ACR-> Azure contaienr Registry(Azure Cloud)
+NEXUS
+____
+docker build -t neuxs.tcs.com/maven-web-application:1.
+docker build -t 172.31.9.84:8883/maven-web-application:1
+DTR->Docker TrusteregistrECR
+
+Push Images
+______
+docker push <ImageTag>
+
+docker push dockerhandson/maven-web-application:1
+Authenticate with docker registered
+____________
+docker login -u <username> -p <password> <RegistryEndpoint/URL>
+In Case of docker hub
+docker login -u <username> -p <password>
+ex:
+docker login -u dockerhandson -p password
+In Case OF ECR
+docker login -u AWS -p dfasfafsfafasa 207862045161.dkr.ecr.ap-south-1.amazonaws.com
+JForG
+docker login -u admin -p admin123 neuxs.tcs.com
+docker login -u admin123 172.31.9.04:8083
+Container Commands
+
+Sudo netstat -tunlp
+Curl -v telnet ://publicip:portno
+Curl -v local host:portno/javawebapp/
+docker exec <contianerId/Name> <command>
+
+docker exec <contianerId/Name> Is
+
+docker exec <contianerId/Name> pwd
+
+docker exec <contianerId/Name> ps -ef
+
+Get inside container shell
+docker exec-it <contianerId/Name> /bin/bash
+docker logs containerId/Name>
+docker logs-tail 18 <containerId/Name>
+Will Display what ever has been sent to STDOUT & STDERROR by the process which is running inside a conainer.
+Application logs
+Log43 it's logging framework
+ConsoleAppender FileAppendder
+It will CPU/Memory Netowork I/0 of the container
+docket stats <contianerId/Name>
+1core = 1800m
+8.5 500m
+docker run -d-name <containerName> -p <hostPort:container Port-cpus "0.25"-memory"
+<Image>
+Docker stats coniatienr id will.should cpu memory status
+Using docker cp We can copy files/folders from container to system or system to container.7/
+docker cp
+What is difference b/w docker cp & COPY?
+COPY is a instruction in Dockerfile. COPY can be used to copy files and folders to Image while creating inage.
+what is docker commit?
+docker commit containerI/Name> <ImageTag
+How to containers changes as image 

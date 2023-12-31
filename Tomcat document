@@ -71,3 +71,6 @@ Tomcat/Jboss --> Sama machine
 server.xml give 
 1000
 0- 1023-> Reserved
+0-65535 --> total port range 
+netstat is used to see port working fine or not 
+ps -ef | grep (processid) --> used to see process working fine or not 

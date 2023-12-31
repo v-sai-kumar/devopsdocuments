@@ -220,14 +220,17 @@ RUN mkdir -p /opt/app
 RUN apt install git -y [we can install softwares by using run]
 
 what is differnce b/w RUN and dockerrun ?
+RUN will execute set of instructions while creating an image 
+docker RUN will pull an image and run the container also 
+
+docker create will only pull an image from registry
 
 USER -->
-
- 
 
 VOLUME -->
   
 EXPOSE -->
+
 docker ps -ef --> to check proceess inside container 
 docker run -it --name centoscontainer centos  /bin/bash
 docker rm centoscontainer

@@ -248,15 +248,16 @@ LABEL branchname $branchname
 we pass branch name dynaically 
 no need to hardcode this value
 
-LABEL --> its like a msg we can see in docker info 
-
+LABEL --> its like a msg we can see in docker info container id or image name 
+LABEL {
+branchname = "dev"
+author = "sai"
+dat of container created  = "31-12-2023"
+}
  
-
 ADD --> ADD also can be to add(COPY) files /folders to the iamge.ADD can add (copy) local files/folders (build context)and also files from remote (https endpoints) locations
 note : only we can use while creating an image 
 if we are adding tar file it will add and extract that image
-
- 
 
 RUN
 ----

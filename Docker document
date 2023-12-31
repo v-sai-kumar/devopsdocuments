@@ -127,3 +127,208 @@ COPY is a instruction in Dockerfile. COPY can be used to copy files and folders 
 what is docker commit?
 docker commit containerI/Name> <ImageTag
 How to containers changes as image 
+refer --> https://kodekloud.com/blog/docker-create-image-from-container/
+docker file
+------------
+Its a file which containes docker DSL (domain specific language) instructions/keywords
+
+ 
+
+Docker daemon will process these instructions from top to bottom order in order to create a image
+
+ 
+
+ 
+
+can we have any other instruction other than from as my instruction ?
+NO, but we can have ARG  as first instrucion in a docker file other than FROM we can have only arg as first instruction
+
+ 
+
+ 
+
+FROM --> FROM is used to get the base image to create your own image , our image willbe created on top of that base image
+# syntax 
+FROM <IMAGE>
+     <repo>:<tag>
+FROM tomcat:8.2
+FROM 20395489055.dkr.ecr.ap-south-1.amazonaws.com/openjdk:9.0
+FROM nexus.tcs.com/openjdk:8.0
+
+ 
+
+what is docker file default name?
+DEFAULT NAME IS DOCKER FILE
+
+ 
+
+can we have a docker file with custom name ?
+yes , docker build -t <IMAGENAME> -f <dockerfilename> <buildcontext>
+
+ 
+
+MAINTANIER --> another name AUTHOR --> owner of the image , it's kind of documention purpose
+
+ 
+
+ENTRY POINT --> we can set entry point (cmnd / script ) for your container , this entry point also will be executed while starting the container only
+
+ 
+
+ENTRY POINT Will take command as a argument 
+eg:- docker run imageone date
+docker run imagetwo pwd
+o/p is welcome to CMD PWD
+
+ 
+
+CMD --> using CMD we can execute scripts and commands 
+CMD will execute instructions while starting the container
+
+ 
+
+what is  diff b/w CMD & ENTRYPOINT ?
+
+ 
+
+FROM 
+ADD[url of link]
+RUN echo "msg"
+RUN mkdir -p /opt/app
+ENTRYPOINT [""]
+
+ 
+
+ 
+
+docker run(create + start) or docker start
+
+ 
+
+can we have more than one CMD ? 
+yes , but docker will not execute more than one CMD even though you have specified  
+docker will execute the recent /last one in the order
+
+ 
+
+differnce between RUN and CMD ?
+while creating an image it self RUN will execute
+
+ 
+
+CMD will execute while starting an container
+ 
+
+ 
+
+CP --> we will copy files from containers
+
+ 
+
+COPY --> it will copy files from build context (server where we are building images) to the image while creating the image (file can we war jar ear yaml etcc..)
+
+ 
+
+#syntax
+COPY <source> <destination>
+COPY home/etc/tomcat/webapps/myfile.war myfile.war
+COPY .(FIRST DOT IS SOURCE) .(2ND .  IS current working directory) 
+COPY . /app --> here dot is source and app is destiantion where source files are copied
+
+ 
+
+ 
+
+WORKDIR --> it will create a new working directory and copy docker instructions or execute commands or run applications on that dirctory 
+it acts like a CD command in linux 
+
+ARG --> it acts as a pass by value in docker file [ARG means argument] we pass the dynamic value to the container by using refernce 
+ARG branchname
+LABEL branchname $branchname 
+we pass branch name dynaically 
+no need to hardcode this value
+
+LABEL --> its like a msg we can see in docker info 
+
+ 
+
+ADD --> ADD also can be to add(COPY) files /folders to the iamge.ADD can add (copy) local files/folders (build context)and also files from remote (https endpoints) locations
+note : only we can use while creating an image 
+if we are adding tar file it will add and extract that image
+
+ 
+
+RUN
+----
+we can execute some commands or scripts using RUN,CMD,ENTRYPOINT 
+RUN --> we can execute commands or scripts using run instructions will be executed while creating(building) an image itself --> <command> <arg1> <arg2>
+NOTE: we can have N no of run instructions docker daemon run instruction in top to bottom order 
+ex..
+RUN mkdir -p /opt/app
+RUN apt install git -y [we can install softwares by using run]
+
+ 
+
+what is differnce b/w RUN and dockerrun ?
+
+ 
+
+USER -->
+
+ 
+
+VOLUME -->
+  
+EXPOSE -->
+docker ps -ef --> to check proceess inside container 
+docker run -it --name centoscontainer centos  /bin/bash
+docker rm centoscontainer
+exit --> to come from contianer
+
+Docker image building by cache concept
+---------------------------------------
+Docker will use cache concept to build images Docker will cache all layer of images if no changes it will build
+it helps to imporve build time of image 
+docker build -t imagename --no-cache  --> no need to provide cache it will by default use cache concept
+docker history  cmnd to see image layers
+
+RUN, CMD, ENTRYPOINT can be define in 2 forms.
+
+Shell Form
+-----------
+syntax:
+RUN <command> <arg1> <arg2> CMD <command> <arg1> <arg2>
+
+ENTRYPOINT <command> <arg1> <arg>
+ex:
+RUN mkdir -p /opt/app RUN apt install wget -y
+CMD sh catalin.sh CMD java -jar app.jar
+
+ENTRYPOINT sh catalin.sh
+ENTRYPOINT java -jar app.jar
+
+In Shell form you command will be executed as below.
+/bin/<shell> -c <command> <arg1> <arg2>
+
+ex:
+RUN mkdir -p /opt/app
+/bin/bash -c mkdir -p /opt/app
+CMD java -jar app.jar
+/bin/bash -c java -jar app.jar
+ENTRYPOINT sh catalin.sh
+/bin/bash -c sh catalin.sh
+Executable Form
+----------------
+syntax:
+RUN ["executable(command)", "arg1", "arg2"]
+CMD ["executable(command)", "arg1", "arg2"]
+ENTRYPOINT ["executable (command)", "arg1", "arg2"]
+ex:
+RUN ["mkdir","-p","/opt/app"]
+RUN "wget","-y"]
+CMD ["sh","catalin.sh"]
+CMD ["java","-jar","app.jar"]
+ENTRYPOINT ["sh","catalin.sh"]
+ENTRYPOINT ["java","-jar","app.jar"]
+In Executable form you command will be executed as below.
+/bin/<exutable(command)> <arg1> <arg2>

@@ -77,7 +77,7 @@ Security Group's
 A security group acts as a virtual firewall for your instance to control incoming and outgoing traffic. Inbound rules control the incoming traffic to your 
 instance, and outbound rules control the outgoing traffic from your instance. ... Security groups are associated with network interfaces.
 
-IAM Used
+IAM User
 ------------------
 AWS Identity and Access Management (IAM) enables you to manage access to AWS services and resources securely. Using IAM, you can create and manage AWS users 
 and groups, and use permissions to allow and deny their access to AWS resources. IAM is a feature of your AWS account offered at no additional charge.

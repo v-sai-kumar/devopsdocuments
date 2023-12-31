@@ -1,0 +1,176 @@
+Create 3 Ubuntu Linux Systems in AWS Execute following commands 
+
+#!/bin/bash
+sudo apt-get update
+sudo apt-get install curl -y
+sudo curl -fsSL get.docksal.io | bash
+sudo usermod -aG docker ubuntu
+
+Logout from the the terminal and login again
+
+Note: Make Sure You Open Required/All Ports in AWS Security Groups.
+
+======================================================================
+# Initialize docker swarm cluster by exeuting below command on docker server which you want make it as Manager
+
+docker swarm init 
+
+# Initialyze Docker swarm with Public IP
+Note: Don't use below(If restart your systems public ip will change will break your cluster) use above commond to initilaze cluster.
+
+docker swarm init  --listen-addr=eth0 --advertise-addr $(curl http://169.254.169.254/latest/meta-data/public-ipv4) (Only run in manager node)
+
+
+
+docker swarm join-token worker (Get the token in manager & exeute in nodes)
+
+
+======================================================================
+
+
+
+docker run  imageName --> It will create/deploy one application  in single machine  --> docker service create
+
+docker-compose up     --> To create/deploy mutiple applications in single mahcine   --> docker stack deploy --composefile docker-compose.yml
+
+
+
+Docker Swarm has two modes
+
+Global   --> All the nodes (3 servers 1 Manager + 2 Workers)
+Replicas --> It will deploye based on replicated number.
+
+
+
+
+docker service create  -p 8080:8080 --name javawebapp --replicas 2 dockerhandson/java-web-app
+
+# User constriants to create containers in specific docker hosts based on condtion
+docker service create  -p 8080:8080 --name javawebapp --replicas 2 --constraint 'node.role==worker' dockerhandson/java-web-app
+
+# Create a service with a rolling update policy
+docker service create --replicas 2  --name nginxservice  --update-delay 10s --update-parallelism 1  nginx:alpine
+docker service update --image nginx:latest nginxservice
+
+
+
+# Create a service with Volume mapping
+docker service create  -p <hostPort>:<containerPort> --name <serviceName> --replicas 1  --mount type=volume,source=<volumeName>,destination=<containerfolderPath> <imageName>
+
+# List Services
+docker service ls
+
+# List Services process
+docker service ps <servicenName>
+
+# Scale Services 
+docker service scale javawebapp=3
+
+docker service rm javawebapp
+
+
+# Add labels to node
+docker node update --label-add key=value <nodeid>
+Ex: docker node update --label-add server=nodeone qmdh9tgvdef99sryhbezswfl9
+
+#Use above label in constrainsts
+docker service create  -p 8080:8080 --name javawebapp --replicas 1 --constraint 'node.labels.server==nodeone' dockerhandson/java-web-app
+
+
+# Drain Nodes in Cluster(Swarm will not create containers in drained nodes)
+docker node update --availability drain <NodeID>
+
+
+# Stack Deploy
+
+version: '3.1'
+
+services:
+  springboot:
+    image: dockerhandson/spring-boot-mongo:latest
+    restart: always
+    container_name: springboot
+    ports:
+      - 8182:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s      
+      restart_policy:
+        condition: on-failure   
+
+  mongo:
+    image: mongo
+    container_name: mongo
+#    ports:  # for demo/debug purpose only
+#      - 27018:27017
+    volumes:
+      - data:/data/db
+      - data-bkp:/data/bkp
+    restart: always
+    
+volumes:
+    data:
+    data-bkp:
+	
+=================================================================
+
+
+docker stack deploy --compose-file docker-compose.yml springmongo
+
+docker stack ls
+
+docker stack rm <stackName>
+
+# To come out of swarm execute below commond in worker node
+docker swarm leave
+
+# Remove node from Manager
+docker node rm <nodename>
+
+
+
+version: '3.1'
+  
+services:
+  springboot:
+    image: dockerhandson/spring-boot-mongo:latest
+    restart: always
+    container_name: springboot
+    ports:
+      - 8182:8080
+    working_dir: /opt/app
+    depends_on:
+      - mongo
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    volumes:
+      - data:/data/db
+      - data-bkp:/data/bkp
+    restart: always
+
+volumes:
+    data:
+      external: true
+    data-bkp:
+      external: true
+	  
+networks:
+  default:
+    external:
+      name: flipkartoverlay
+
+

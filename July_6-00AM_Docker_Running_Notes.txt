@@ -307,10 +307,8 @@ docker rmi <imageId/Name>
 
 docker rmi -f <imageId/Name>
 
+Note: We can't remove images if there are running container for the image.We cann't force delete images if there is running container.
 
-
-
-Note: We cann't remove images if there are running container for the image.We cann't force delete images if there is running container.
 
 If container is in stopped(exited) state we can force delete image for the stopped container.
 
@@ -320,14 +318,14 @@ The image which doesn't have repository mapping or tag.
 How to delete all the images?
 docker rmi -f imageId imageId imageId
 
-docker rmi -f $(docker images -q)
+docker rmi -f $(docker images -q) --> delete all  images at a time
 
 docker system prune 
 Will delete all stopped containers , unused docker networks and dangling images.
 
 docker image prune
 
-Will delete angling images.
+Will delete dangling images.
 
 We can tag image with repo.
 
@@ -471,20 +469,13 @@ Start the container
 ===================
 docker start <containerId/Name>
 
-
 Restart Container
-
 docker restart <containerId/Name>
 
 Stop Container
-
 docker stop <containerId/Name>
 
-
-
-
 Kill container
-
 docker kill <containerId/Name>
 
 What is the difference b/w docker stop & docker kill?
@@ -493,7 +484,6 @@ docker stop will first send SIGTERM then SIGKILL it will kill process with grace
 
 Can we have/run more than one process in a container?
 Yes Can we have. But it's not suggestable. 
-
 
 Pause contaier process.
 
@@ -506,7 +496,7 @@ docker inspect <containerId/Name>
 docker container inspect <containerId/Name>
 
 
-It will  container if it is stopped.
+It will remove container if it is stopped.
 docker rm  <containerId/Name>
 
 Force Remove If container is runing we can force remove
@@ -520,9 +510,7 @@ How to delete all containers
 docker rm -f $(docker ps -aq)
 
 
-
 How to trouble shoot or debug application which is running as a container?
-
 docker logs <containerId/Name>
 docker logs --tail <NoOflines> <containerId/Name>
 
@@ -532,7 +520,7 @@ docker top <containerId/Name>
 # It will display resource(RAM,CPU) consumtion details.
 docker stats <containerId/Name>
 
-# Execute commands on a runinging container.
+# Execute commands on a running container.
 docker exec <containerId/Name> <cmd>
 
 ex:
@@ -578,31 +566,21 @@ docker commit <containerId/Name> <imageName>
 Can we set CPU,RAM limit for the containers while creating?
 Yes We set using options while creating a container.
 
-
-
-
-
-
-
 Image is package (AppCode+ Softwares)
 Cotainer is a running process of an image.
 
-If you have to crate docker image we need a dockerfile.
+If you have to create docker image we need a dockerfile.
 
 
 Dockerfile --> Dockerfile is file which contians instructions(Docker Domain Specific KeyWords) to create an image. 
 Docker Daemon  will process these instruction from top to bottom.
-
-
 
 EX:
 
 FROM tomcat:8.0.20-jre8
 COPY target/java-web-app*.war /usr/local/tomcat/webapps/java-web-app.war
 
-
 DockerImage --> It's package which contains application code + all it's dependencies(Software+ENV Varibles + Config Files) together.
-
 
 Dockerfile keywords
 ===================
@@ -671,7 +649,7 @@ COPY . .
 
 ADD --> ADD also can copy files to the image while creating image. ADD can copy local files from host server and also it can download files from remote HTTP/S locations while creating a image.
 		
-ADD <URL> <destination>
+ADD <remote URL> <destination>
 
 ADD <source> <destination>
 
@@ -744,13 +722,8 @@ Requirement always we have to execute sh catalina.sh . But argument by default i
 CMD start
 ENTRYPOINT ["sh", "catalina.sh"]
 
-
-
-
-
-
-
 Shell vs Exec form From
+------------------------
 EXEC:
 <instruction> ["executable", "param1", "param2", ...]
 
@@ -838,10 +811,8 @@ FROM tomcat:8.0.20-jre8
 COPY --from=build /app/target/maven-web-application*.war /usr/local/tomcat/webapps/maven-web-application.war
 
 
-
-
-
 Docker Networks
+===============
 
 What is network ?
 Group of servers/devices connected to each other in a specific network. If Servers
@@ -869,7 +840,6 @@ Docker will have 3 networks by default.
 bridge(default)
 host
 none/null
-
 
 docker run -d --name javawebapp -p 8080:8080 dockerhandson/java-web-app
 

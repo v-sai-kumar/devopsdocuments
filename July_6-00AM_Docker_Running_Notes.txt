@@ -150,8 +150,8 @@ docker images
 
 # Sample DockerFile Content
 
-FROM tomcat:8-jdk8-corretto
-COPY target/maven-web-application*.war /usr/local/tomcat/webapps/maven-web-application.war
+FROM tomcat:8-jdk8-corretto   --> base image
+COPY target/maven-web-application*.war /usr/local/tomcat/webapps/maven-web-application.war  -->source to destination
 
 
 # Build Image
@@ -204,10 +204,6 @@ docker push dockerhandson/maven-web-application
 
 Private Repo
 docker push 178.90.34.12:8083/maven-web-application
-
-
-
-
 
 Image Commands
 =============
@@ -287,9 +283,6 @@ docker pull dockerhandson/maven-web-application
 Private Repo
 docker pull 178.90.34.12:8083/maven-web-application
 
-
-
-
 Inspect Docker Image
 ==================
 docker image inspect <imageId/Name>
@@ -302,13 +295,12 @@ docker history <imageId/Name>
 
 
 Delete Image
-
+--------------
 docker rmi <imageId/Name>
 
 docker rmi -f <imageId/Name>
 
 Note: We can't remove images if there are running container for the image.We cann't force delete images if there is running container.
-
 
 If container is in stopped(exited) state we can force delete image for the stopped container.
 
@@ -352,7 +344,7 @@ docker load -i <fileName>.tar
 
 
 List Dangling images
-
+---------------------
 docker images -f dangling=true
 
 Remove Dangling Images
@@ -381,7 +373,7 @@ This will remove:
   
   
 Create ECR in AWS.
-  
+------------------
 Note: Replcae your ECR URL when with 935840844891.dkr.ecr.ap-south-1.amazonaws.com when u create and push.
 ECR
 ===
@@ -399,16 +391,13 @@ AmazonEC2ContainerRegistryFullAccess
 # IAM Policiy to autheticate and pull image.
 AmazonEC2ContainerRegistryReadOnly
 
-
-
 Container Commands:
 ===================
 How to create a contianer?
 
-docker run or docker create
+docker run (or) docker create
 
 docker create --name <containerName> -p <hostPort>:<containerPort> <imageName>
-
 
 docker run --name <containerName> -p <hostPort>:<containerPort> <imageName>
 
@@ -485,18 +474,18 @@ docker stop will first send SIGTERM then SIGKILL it will kill process with grace
 Can we have/run more than one process in a container?
 Yes Can we have. But it's not suggestable. 
 
-Pause contaier process.
+Pause container process.
 
 docker pause <containerId/Name>
-
 docker unpuase <containerId/Name>
 
-Inspect container
+Inspect container process
+
 docker inspect <containerId/Name>
 docker container inspect <containerId/Name>
 
-
 It will remove container if it is stopped.
+
 docker rm  <containerId/Name>
 
 Force Remove If container is runing we can force remove
@@ -508,7 +497,6 @@ docker rm $(docker ps -aq --filter  status="exited")
 
 How to delete all containers
 docker rm -f $(docker ps -aq)
-
 
 How to trouble shoot or debug application which is running as a container?
 docker logs <containerId/Name>
@@ -535,7 +523,7 @@ docker exec -it <containerId/Name> /bin/bash
 
 docker exec -it <containerId/Name> /bin/sh
 
-# Docker attach will attach container process or shell to host server
+# Docker attach will attach container process (or) shell to host server
 docker attach <containerId/Name>
 
 If we have to come out with out stoping the process cntl p+q.
@@ -559,7 +547,7 @@ docker cp  /home/ubunut/test.log javawebappone:/usr/local/tomcat/logs/test.log
 docker rename <ContainerId/NameOld> <NewName>
 
 What is docker commit?
-Using docker commit we can create image from the continer.
+Using docker commit we can create image from the container.
 
 docker commit <containerId/Name> <imageName>
 
@@ -567,7 +555,7 @@ Can we set CPU,RAM limit for the containers while creating?
 Yes We set using options while creating a container.
 
 Image is package (AppCode+ Softwares)
-Cotainer is a running process of an image.
+Container is a running process of an image.
 
 If you have to create docker image we need a dockerfile.
 
@@ -644,7 +632,7 @@ EX:
 COPY target/java-web-app.war /usr/local/tomcat/webapps/java-web-app.war
 
 # Below also valid it will copy all the files/folder from HOST Machine current working
-directory to Image working dirctroy.
+directory to Image working directory.
 COPY . .
 
 ADD --> ADD also can copy files to the image while creating image. ADD can copy local files from host server and also it can download files from remote HTTP/S locations while creating a image.
@@ -701,10 +689,7 @@ Can we have more than one CMD in dockerfile?
 Yes you can have. But only the last one/recent one in the order will be proccessed while creating a container.
 
 
-
-
 Can we have both CMD & ENTRYPOINT in docker file? 
-
 Yes we can have both in a docker file. CMD instructions will not be executed if we have both CMD & ENTRYPOINT.CMD instructions will be passed as an arguments for ENTRYPOINT.
 
 FOR Example:
@@ -737,7 +722,6 @@ Whether you’re using ENTRYPOINT or CMD (or both) the recommendation is to alwa
 Examples:
 FROM ubuntu:trusty  
 CMD ["/bin/ping","localhost"]
-
 
 Examples:
 FROM ubuntu:trusty  

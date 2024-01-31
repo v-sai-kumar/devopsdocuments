@@ -134,25 +134,15 @@ sudo usermod -aG docker ec2-user
 # Exit From Current SSH Terminal & SSH(Login) again .Then execute 
 docker ps
 
-
-
-
 How many containers we can run in on system/server?
 It dependes on your system resources(CPU,RAM).
 
-
 # List Images
-
 docker images
 
-
-
-
 # Sample DockerFile Content
-
 FROM tomcat:8-jdk8-corretto   --> base image
 COPY target/maven-web-application*.war /usr/local/tomcat/webapps/maven-web-application.war  -->source to destination
-
 
 # Build Image
 Defautl Docker file Name: Dockefile
@@ -172,16 +162,13 @@ Note: If we don't mention version information. By defualt it will use 'latest' a
 ex:
 docker build -t dockerhandson/maven-web-application .
 
-
 Private Repo (Nexus/JFrog/DTR)
 
 docker build -t <imageName> .
-
 docker build -t <IP/HostNameOfRepo>:<RepoPort>/<repoName>:<version> .
 
 ex:
 docker build -t 178.90.34.12:8083/maven-web-application .
-
 Authenticate with repo
 
 # Public Repo
@@ -189,12 +176,10 @@ docker login -u <userName> -p <password>
 ex:
 docker login -u dockerhandson -p password
 
-
-Priavate Repo
+# Private Repo
 docker login -u <username> -p <password>  <URL>
 ex:
 docker login -u admin -p admin123 178.90.34.12:8083
-
 
 Push Docker Image to Repo
 docker push <imageName>
@@ -292,8 +277,6 @@ docker inspect <imageId/Name>
 How to list only layers of an image?
 docker history <imageId/Name>
 
-
-
 Delete Image
 --------------
 docker rmi <imageId/Name>
@@ -328,20 +311,15 @@ docker tag <ImageId/ExistingImageName> <ImageName>
 What is working directory of docker?
 /var/lib/docker
 
-
 How can we move/copy images from one server to another server with out repo?
-
 In Source Server(where you have image)
 # It save image(All the layers) as a tar file
 
 docker save -o <fileName>.tar <imageName/Id>
-
-
 Then SCP tar file from Source Server to Destination Server
 
 # In destination server
 docker load -i <fileName>.tar
-
 
 List Dangling images
 ---------------------
@@ -349,7 +327,6 @@ docker images -f dangling=true
 
 Remove Dangling Images
 docker rmi $(docker images -f dangling=true -q)
-
 
 docker system prune 
 
@@ -369,8 +346,6 @@ This will remove:
 docker network prune
 This will remove:
   - all networks not used by at least one container
-  
-  
   
 Create ECR in AWS.
 ------------------
@@ -427,37 +402,27 @@ docker run -it --name <nameofthecontainer>  <image>
 
 List Running Containers
 =======================
-
 docker ps 
 docker container ls
 
 List All Containers
 ==================
-
 docker ps -a
-
 docker container ls -a
 
 List only running container ids
 ==============================
-
 docker ps -q
-
 docker container ls -q
-
 
 List all container ids
 ==============================
-
 docker ps -aq
-
 docker container ls -aq
-
 
 Start the container
 ===================
 docker start <containerId/Name>
-
 Restart Container
 docker restart <containerId/Name>
 
@@ -558,7 +523,6 @@ Image is package (AppCode+ Softwares)
 Container is a running process of an image.
 
 If you have to create docker image we need a dockerfile.
-
 
 Dockerfile --> Dockerfile is file which contians instructions(Docker Domain Specific KeyWords) to create an image. 
 Docker Daemon  will process these instruction from top to bottom.
@@ -752,7 +716,6 @@ CMD echo "Hello world"
 When instruction is executed in shell form it calls /bin/sh -c <command> under the hood and normal shell processing happens.
 
 
-
 LABEL
 
 ENV
@@ -835,10 +798,8 @@ with IP Address of container. Communcation will not happen using containerName(h
 
 To Check Go inside javawebapp container and ping mavenwebapp container using name & ip. When we ping using ip it will work it will not able to communicate using name.
 
-
 Developers should not code the connectivity based on the IP in case of contianers. Since IP address of cotnainers will be dynamic.
 IP will keep changing.
-
 
 How to create a custom bridge network ?
 
@@ -862,8 +823,6 @@ docker run -d --name mavenwebapp  --network flipkartnetwork dockerhandson/maven-
 Create both containers in same network and try to ping mongo contaner with name & IP  from sprinapp container or vice versa it will work with both.
 
 
-
-
 Another Application
 
 Ex: 
@@ -873,7 +832,6 @@ docker network create -d bridge springappbridge
 docker run -d --name mongo -e MONGO_INITDB_ROOT_USERNAME=devdb -e MONGO_INITDB_ROOT_PASSWORD=devdb@123  --network springappbridge mongo
 
 docker run -d -p 8080:8080 --name springapp  -e MONGO_DB_HOSTNAME=mongo -e MONGO_DB_USERNAME=devdb -e MONGO_DB_PASSWORD=devdb@123 --network springappbridge  dockerhandson/spring-boot-mongo
-
 
 
 # Remove unused networks
@@ -896,17 +854,11 @@ Docker none/null network
 If we create contaienrs in none/null network. Container will not have IP Address.We can't 
 accees these contianers from out side or from any other cotnainer.
 
-
 We connect container to more than one network by using docker connect.
 
 docker network connect <networkName/Id>  <containerName/Id>
 
 docker network disconnect <networkName/Id>  <containerName/Id>
-
-
-
-
-
 
 
 Docker Volumes
@@ -934,17 +886,14 @@ Volumes:
    To take maitain state (date) of container we have to use volunmes
    
    
-   
 Bind Mounts:
+------------
 Bind mounts may be stored anywhere on the host system. They may even be important system files or directories. Non-Docker processes on the Docker host or a Docker container can modify them at any time.
 
 # Volumes Using bind mount
 mkdir mongodbdata(If not exists)
 # Delete container if exists then create
 docker run -d --name mongo -v ~/mongodbdata:/data/db  -e MONGO_INITDB_ROOT_USERNAME=devdb -e MONGO_INITDB_ROOT_PASSWORD=devdb@123  --network springappbridge mongo
-
-
-
 
 
 Docker Peristent Volumes
@@ -989,17 +938,11 @@ Map Volumes As Read Only using below option>
 -v <volumeName/BindMount>:<containerPath>:ro
 
 
-
-
-
 Docker Compose
 ==============
 
 Docker Compose is a tool for defining and running multicontainer applications.
-
-
 With out compose to deploy above applications which has only 2 images we executed below commnads.
-
 
 docker network create -d bridge springappnetwork
 
@@ -1177,16 +1120,11 @@ Docker Compose Commands:
   version            Show the Docker-Compose version information
 
 
-
-
-
 # In Normal(Standalone) Docker Server We can use below command to create a containers.
 docker-compose up
 
 # In docker swarm we will use below command to deploy services using docker compose.
 docker stack deploy --compose-file docker-compose.yml <stackName>
-
-
 
 
 Containerization Tools: docker,rocker(rkt),coreos
@@ -1201,8 +1139,6 @@ Scalability
 L.B
 
 
-
-
 # In Normal(Standalone) Docker Server We can use below command to create a container.
 docker run -d -p <hostPort>:<containerPort> --name <containerName> <imageName>
 
@@ -1214,7 +1150,6 @@ docker-compose up
 
 # In docker swarm we will use below command to deploy services using docker compose.
 docker stack deploy --compose-file docker-compose.yml <stackName>
-
 
 
 Note: Make Sure You Open Required/All Ports in AWS Security Groups.
@@ -1235,13 +1170,10 @@ docker swarm init  --listen-addr=eth0 --advertise-addr $(curl http://169.254.169
 # Get worker token
 docker swarm join-token worker (Get the token in manager & exeute in nodes)
 
-
-
 Docker Swarm has two modes
 
 Global   --> All the nodes (3 servers 1 Manager + 2 Workers)
 Replicas --> It will deploye based on replicated number.
-
 
 
 What is serivce in docker or docker swarm?
@@ -1303,9 +1235,6 @@ docker service create --replicas 2  --name javawebapp  --update-delay 30s --upda
 
 # Update service image without down time.
 docker service update --image dockerhandson/java-web-app:2 javawebapp
-
-
-
 
 
 docker stack deploy --compose-file docker-compose.yml springmongo

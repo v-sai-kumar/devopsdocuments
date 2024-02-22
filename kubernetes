@@ -1,1 +1,29 @@
+service can be accessed only with in pod
+
+pods will have unique ip address given by 
+
+network namespace can be found under var/run/netns
+
+CRI plugin creates a network names0pace 
+
+when we not sepcify any namespace its used default namespace
+
+within namespace object name should be unique 
+
+we can use same object name for differnet namespaces
+
+we have to carefully give selectors and labels for the specific pod to access or else we get error 
+
+to enter inside container from pod we use --> kubectl exec -it podname -n namespacename-ns -- sh
+in  the above if we have more continers in the pod it will exec by index value 0th index first
+
+if we have more contianers in the pod we use contianer name -->kubectl exec -it podname -c contianername -n namespacename-ns -- sh
+
+we communicate b/w pods within node by using localnetwork or pod ip 
+
+service will act as a loadbalancer and service discovery 
+ *cluster port we can access within cluster only 
+ *nodeport we can access from outside cluster webpage 30000 to 32767 node port range
+
 if we have 2 pods first pod will be executed if we execute pod 
+

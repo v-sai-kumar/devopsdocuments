@@ -27,3 +27,29 @@ service will act as a loadbalancer and service discovery
 
 if we have 2 pods first pod will be executed if we execute pod 
 
+if we want to execute specific container in a pod we have to give container name 
+eg - kubectl exec -it podname -c containername bash 
+
+curl -v servicename/containername --> communicates with a web or application serverby specifying a relevant URL and the data that need to be sent or received 
+
+imp:
+if 2 pods are in same namespace we communicate by using fqdn (FULLY QULIFIED DOMAIN NAME)
+eg: curl -v servicename.namespacename.svc.cluster.local/contianerrname 
+curl -vL mavenwebappsvc.test-ns.svc.cluster.local/mavenwebapplication 
+
+Multicontainer pod.yml
+we have to give different port numbers so we can use multicontainers
+ports:
+  - port: 8080
+  - targetport: 8080
+    name: tomcat
+  - port: 80
+  - targetport: 80
+    name: nginix
+
+if we have different namespace and we want to access pods of different namespace
+
+
+
+
+

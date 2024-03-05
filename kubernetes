@@ -71,6 +71,14 @@ Pods follow a defined lifecycle, starting in the Pending phase, moving through R
 
 Whilst a Pod is running, the kubelet is able to restart containers to handle some kind of faults. Within a Pod, Kubernetes tracks different container states and determines what action to take to make the Pod healthy again
 
+
+DEPLOYMNENTS
+------------
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.
+
+
+
 CONTROLL PROBES
 ---------------
 Types of probe
@@ -88,6 +96,8 @@ Indicates whether the application within the container is started. All other pro
 HPA
 ----
 https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/
+
+https://kubernetes.io/docs/tutorials/kubernetes-basics/scale/scale-intro/
 
 A HorizontalPodAutoscaler (HPA for short) automatically updates a workload resource (such as a Deployment or StatefulSet), with the aim of automatically scaling the workload to match demand.
 
@@ -120,6 +130,28 @@ volumes:
     hostPath:
       path: /data/foo # directory location on host
       type: Directory # this field is optional
+presistent - volumes
+--------------------
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/
+
+Provisioning
+There are two ways PVs may be provisioned: statically or dynamically.
+
+Static
+A cluster administrator creates a number of PVs. They carry the details of the real storage, which is available for use by cluster users. They exist in the Kubernetes API and are available for consumption.
+
+Dynamic
+When none of the static PVs the administrator created match a user's PersistentVolumeClaim, the cluster may try to dynamically provision a volume specially for the PVC. This provisioning is based on StorageClasses: the PVC must request a storage class and the administrator must have created and configured that class for dynamic provisioning to occur. Claims that request the class "" effectively disable dynamic provisioning for themselves.
+
+To enable dynamic storage provisioning based on storage class, the cluster administrator needs to enable the DefaultStorageClass admission controller on the API server. This can be done, for example, by ensuring that DefaultStorageClass is among the comma-delimited, ordered list of values for the --enable-admission-plugins flag of the API server component. For more information on API server command-line flags, check kube-apiserver documentation.
+
+Binding
+A user creates, or in the case of dynamic provisioning, has already created, a PersistentVolumeClaim with a specific amount of storage requested and with certain access modes. A control loop in the control plane watches for new PVCs, finds a matching PV (if possible), and binds them together. If a PV was dynamically provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise, the user will always get at least what they asked for, but the volume may be in excess of what was requested. Once bound, PersistentVolumeClaim binds are exclusive, regardless of how they were bound. A PVC to PV binding is a one-to-one mapping, using a ClaimRef which is a bi-directional binding between the PersistentVolume and the PersistentVolumeClaim.
+
+Claims will remain unbound indefinitely if a matching volume does not exist. Claims will be bound as matching volumes become available. For example, a cluster provisioned with many 50Gi PVs would not match a PVC requesting 100Gi. The PVC can be bound when a 100Gi PV is added to the cluster.
+
+
+
 
 
 

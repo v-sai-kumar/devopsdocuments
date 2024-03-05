@@ -51,6 +51,16 @@ if we have different namespace and we should access pods of different namespaces
 
 NAMESPACE
 ---------
+https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/
+
+User namespaces is a Linux feature that allows to map users in the container to different users in the host. Furthermore, the capabilities granted to a pod in a user namespace are valid only in the namespace and void outside of it.
+The kubelet will pick host UIDs/GIDs a pod is mapped to, and will do so in a way to guarantee that no two pods on the same node use the same mapping.
+The valid UIDs/GIDs when this feature is enabled is the range 0-65535. This applies to files and processes (runAsUser, runAsGroup, etc.)
+When creating a pod, by default, several new namespaces are used for isolation: a network namespace to isolate the network of the container, a PID namespace to isolate the view of processes, etc. If a user namespace is used, this will isolate the users in the container from the users in the node.
+
+This means containers can run as root and be mapped to a non-root user on the host. Inside the container the process will think it is running as root (and therefore tools like apt, yum, etc. work fine), while in reality the process doesn't have privileges on the host. You can verify this, for example, if you check which user the container process is running by executing ps aux from the host. The user ps shows is not the same as the user you see if you execute inside the container the command id.
+
+Furthermore, as users on each pod will be mapped to different non-overlapping users in the host, it is limited what they can do to other pods too.
 
 
 PODLIFECYCLE
@@ -98,6 +108,19 @@ spec:
     name: php-apache
   minReplicas: 1
   maxReplicas: 10
+
+volumes
+-------
+https://kubernetes.io/docs/concepts/storage/volumes/
+
+Volumes cannot mount within other volumes (but see Using subPath for a related mechanism). Also, a volume cannot contain a hard link to anything in a different volume
+volumes:
+  - name: example-volume
+    # mount /data/foo, but only if that directory already exists
+    hostPath:
+      path: /data/foo # directory location on host
+      type: Directory # this field is optional
+
 
 
 

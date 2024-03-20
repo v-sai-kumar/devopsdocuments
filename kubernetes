@@ -300,7 +300,10 @@ spec:
 
 The log-config ConfigMap is mounted as a volume, and all contents stored in its log_level entry are mounted into the Pod at path /etc/config/log_level. Note that this path is derived from the volume's mountPath and the path keyed with log_level.
 
+kubectl get events -n namespacename 
+to see events for the specific namespace like logs
 
+livenessprobe and readynessprobe we have to use mandatory to know the application status and 
 
 
 

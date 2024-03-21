@@ -411,7 +411,27 @@ AWS EKS
 we will create a IAM role and assign policy for that ec2 instance Readonlypolicy assign and give 
 we can see now based on policy that server will autoamtocally fetch the private image from the eks registry and we will not require any secret to use for the authentication wile comes to AWS cloud
 
+stateful sets 
+-------------
+"A StatefulSet is a Kubernetes controller that manages the deployment and scaling of a set of Pods, and provides guarantees about the ordering and uniqueness of these Pods. It's particularly useful for applications that require stable, unique network identities and storage for each of their components.
 
+StatefulSets are typically used for stateful applications, such as databases, where each instance needs a stable, unique identity and the ability to handle persistent data. They are designed to maintain the identity of the Pods, even when they are rescheduled, and to ensure that each Pod has a unique hostname and DNS name.
+
+Here are some key features of StatefulSets:
+
+Stable, unique network identities: Each Pod in a StatefulSet has a unique, stable hostname and DNS name, allowing other services to reliably discover and connect to them.
+
+Persistent storage: StatefulSets support the use of Persistent Volumes (PVs) and Persistent Volume Claims (PVCs) to provide each Pod with stable, persistent storage.
+
+Ordered deployment and scaling: StatefulSets deploy and scale their Pods in a specific order, ensuring that each Pod is fully up and running before the next one is started.
+
+Ordered deletion: When a StatefulSet is deleted, its Pods are terminated in reverse order, ensuring that each Pod has a chance to cleanly shut down and release any resources it may be holding.
+
+Rolling updates: StatefulSets support rolling updates, allowing you to update the Pods in a controlled, predictable manner.
+
+To use a StatefulSet, you define a StatefulSet object in your Kubernetes cluster, specifying the number of replicas, the container image, and any other necessary configuration options. The Kubernetes control plane will then create and manage the Pods according to your specifications.
+
+In summary, StatefulSets are a powerful tool for deploying and managing stateful applications in Kubernetes. By providing stable, unique network identities and persistent storage for each Pod, they enable you to run complex, stateful applications with confidence and ease."
 
 
 

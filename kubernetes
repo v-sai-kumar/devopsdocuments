@@ -433,6 +433,48 @@ To use a StatefulSet, you define a StatefulSet object in your Kubernetes cluster
 
 In summary, StatefulSets are a powerful tool for deploying and managing stateful applications in Kubernetes. By providing stable, unique network identities and persistent storage for each Pod, they enable you to run complex, stateful applications with confidence and ease."
 
+**To change namespace of the cluster we can use below command
+kubectl config set-contxt --current --namespace=test-ns
+kubectl config view
+  we can see that clusternamespace is changed to test-ns
+kubectl config set-contxt --current --namespace=default
+  we can see that clusternamespace is changed to default
+
+kubectl get pods --kubeconfig ~./kube/config 
+o/p --> norespurce found in default namespace
+
+kubectl get pods --kubeconfig ~./kube/config -n test-ns
+o/p --> display all resurces
+
+kubectl get nodes --show-labels --> display default labels of the nodes 
+
+scheduling 
+----------
+nodeselector --> when we give node selector it will schedule specfic node on matching node selector 
+kubectl label node <nodename/nodeip> <lebel-key>=<label-value>
+kubectl label node ip:172.52.185.4 name=workerone storage=ssd
+
+now we can use this node label as a node selector
+
+in any pod or ds or rs use in specification section
+spec:
+  nodeselector:
+    name=workerone
+it will assign to node which have workerone only when it matches 
+if we have taints on the node node wont schedule it wil be in waiting state
+but here that one node which has label went down pods wont scheduled to remaining nodes here' node affinifty comes into picture
+
+Node Affinity
+nodeaffinifty will schedule pods on any node 
+we have 2 rules
+1.hardrule (wont schedule on unmatched nodes )
+2.softrule ( schedule on unmatched nodes )
+
+
+
+
+
+
 
 
 

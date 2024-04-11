@@ -472,6 +472,19 @@ we have 2 rules
 2.softrule ( schedule on unmatched nodes )
 cardon / uncardon/taints/tolerations/pod affinity , nod, pod antiaffinity
 
+managed kubernetes cluster 
+---------------------------------
+EKS ,GKS ,AKS,etc..
+EKS we use in aws 
+1.create a eks cluster
+2 . create a IAM role and give required permission 
+3. create a node group
+
+
+KOP's --> by using k8s operations softeare we can setup high availble and production ready k8s cluster in aws (support others like azure )
+kops will configure one launch cofig , and one autoscaling group for master
+another one launch config , and one autoscaling group for workers
+
 ingress controlller
 --------------------
 https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
@@ -480,17 +493,6 @@ Ingress resource to work, the cluster must have an ingress controller running.
 
 Unlike other types of controllers which run as part of the kube-controller-manager binary, Ingress controllers are not started automatically with a cluster.
 https://www.nginx.com/blog/deploying-nginx-ingress-controller-on-amazon-eks-how-we-tested/
-
-
-
-
-
-
-
-
-
-
-
 
 
 

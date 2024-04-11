@@ -465,10 +465,21 @@ if we have taints on the node node wont schedule it wil be in waiting state
 but here that one node which has label went down pods wont scheduled to remaining nodes here' node affinifty comes into picture
 
 Node Affinity
+--------------
 nodeaffinifty will schedule pods on any node 
 we have 2 rules
 1.hardrule (wont schedule on unmatched nodes )
 2.softrule ( schedule on unmatched nodes )
+cardon / uncardon/taints/tolerations/pod affinity , nod, pod antiaffinity
+
+ingress controlller
+--------------------
+https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/
+
+Ingress resource to work, the cluster must have an ingress controller running.
+
+Unlike other types of controllers which run as part of the kube-controller-manager binary, Ingress controllers are not started automatically with a cluster.
+https://www.nginx.com/blog/deploying-nginx-ingress-controller-on-amazon-eks-how-we-tested/
 
 
 

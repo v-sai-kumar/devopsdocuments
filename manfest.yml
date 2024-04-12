@@ -447,7 +447,7 @@ spec:
           ports:
           - containerport: 80
 ---
-# daemon sets example
+# daemon sets example used to replicate the pod in every node 
 apiVersion: v1
 kind: DaemonSet
 metadata:
@@ -462,7 +462,15 @@ spec:
   template:
     metadata:
       name: fluentd image
-      labels:
+      labels: daemonset 
+    spec: 
+      containers:
+     - name: mycontainer
+          image: nginix
+          ports:
+          - containerport: 80
+            targetport: 80
+          
         
 
 

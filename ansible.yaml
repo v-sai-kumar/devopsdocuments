@@ -1,0 +1,287 @@
+--- 
+- hosts: 10.102.8.09
+  gather_facts: true  # BY default yes if we not specify also no problem 
+  tasks:
+  - name: install tomcat on all servers
+    yum:  #module yum is used to install
+     name: tomcat
+     state: present
+  - name: enable tomcat on all servers
+    become: yes
+    systemd: 
+     name: tomcat
+     state: started
+  - name: connect to tomcat server on port no 8080 and check status
+    tags: test
+    uri: # to specify any urls we use uri module
+     url: https://localhost:8080
+     register: result
+     until: 'result.status =200' 
+     retries: 5
+     delay: 10
+ - name: create a group  #create a group in ansible 
+   become: true
+   user:
+    name: tomcat
+    state: present
+  - name: create a user
+    become: true
+    user: # Ansible user module is a way to use Ansible to do user management on target remote machines
+     name: tomcat
+     state: present
+  - name: write a content
+    become: true
+    copy: # used to copy files easily from Ansible-controlled machines to remote machines
+     content: 'hello world'
+     dest: 'etc/var/lib/docker'
+   - name: move to directory
+     become: true
+     shell: 'mv c:/user/2268009/ansible.yaml /temp'
+...
+# installing packages using name keyword as a list
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+  - name: install list of packages
+    yum:
+    name: ['git','tomcat','httpd']
+...
+
+# ansible playbook to write multiple packages installation at a time with_items is 
+# not supported in newer version of ansible 
+---
+- hosts: 172.98.1.0
+  gather_facts: true
+  become: true
+  tasks: 
+   - name: install list of packages
+     yum: name="{{item}}"state=present
+     with_items:
+      - git
+      - tomcat
+      - zip
+      - unzip
+      - nano 
+      - wget 
+...
+# when conditon for playbooks on specific server install package
+--- 
+- hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+  - name: install packages on red hat server
+    yum:
+     name: git
+     state: present
+    when: ansible_os_family == "RedHat"
+  - name: install package on unix server
+    yum:
+     name: git
+     state: present
+    when: ansible_os_family == "Debian"
+...
+#install package if not installed on specific server 
+
+---  #starts with 3 --- symbools
+- hosts: all
+  become: true
+  tasks:
+  - name: get git version
+    shell: git --version
+    register: gitversion
+    ignore_errors: yes
+  - name: Displaying message git is installed or not 
+    when: gitversion.stdout == ""  # when git version is empty means denote by ("")
+    debug: # to display message we use debug module
+     msg: "git is not installled"
+  - name: install git package
+    when: gitversion.stdout == "" # now git will install because in above task it is not installed 
+    yum:
+     name: git
+     state: present
+  - name: Dispaly Git installed version
+    shell: git --version  # runs the command through a shell
+    register: gitversion
+ - name: Display message git installed 
+    when: gitversion.stdout  != "" #  when git version is not empty means denote by (!="")   
+    debug:
+     msg: "git is installed and version is {{gitversion.stdout}}"  # msg is property
+... # ends with ... 
+
+# TAGS TOPIC
+#  when we want to install specific task we will use TAGS
+#  to check how many tags we use ANSIBLE-playbook playbookname --list-tags 
+# install specific tag only means use --tags 'tag name' [only single codes use ]
+# we can give  N no of Tags by separate ['copy','install'] by yaml script tags order only it will execute 
+#  we can skipp specific task --skip -tags 'tag names give'[--skip -tags 'copy','install']
+
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: install python
+  - tag:
+     install
+    yum:
+     name: python
+     state: present
+  - name: install git
+    yum:
+     name: git
+     state: present
+  - name: display message of installed packages
+    copy:
+     content: 'hello world'
+     dest: 'etc/var/lib/docker'
+   - name: move to directory
+     become: true
+     shell: 'mv c:/user/2268009/ansible.yaml /temp'
+...
+
+
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  - name: get javaversion
+    shell: java --version
+    register: gitversion
+    ignore_errors: yes 
+  - name: Display git is installled or not
+    when: gitversion.stdout == ""
+    debug:
+     msg: "git is not installed"
+  - name: install git package
+    when: gitversion.stdout=""
+    yum:
+     name: git
+     state: present
+  - name: Display Git is instaled version
+    shell: git --version
+    register: gitversion
+  - name: Display message git is installed
+    when: gitversion.stdout !=""
+    debug: 
+     msg: "git isntalled version is {{gitversion.stdout}}"  
+...
+
+#install java  using playbook
+---
+- host: all
+  gather_facts: true
+  become: true
+  - name: download jdk binary file
+    get_url:
+     url: give jdk url link
+     dest: /opt/openjdk-10.9.08_bin.tar.gz
+  - name: unzip the tar file downlaoded
+    unarchive:
+     src: /opt/openjdk-10.9.08_bin.tar.gz
+     dest: /opt
+     remote_src: yes
+  - name: set jdk_home in /etc/profile file
+    lineinfile:
+     path: /etc/profile
+     state: present
+     line: "{{item}}"
+    with_items:
+     -'export JAVA_HOME="/opt/jdk-18.0.2.4"'
+     -'export PATH=$PATH:$JAVA_HOME/bin'
+  - name: reload /etc/profile
+    shell:
+     cmd: source/etc/profile
+...
+# install jenkins ,git , java ,maven 
+--- 
+- host: all
+  gather_facts: true 
+  become: true
+  - name: install list of packages
+    yum:
+     name: ['git','jenkins','java','maven']
+...
+
+# Copy file with owner and permission, using symbolic representation
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  - name: Copy file with owner and permission, using symbolic representation
+    ansible.buitin.copy:
+      src: etc/apache-tomcat-9.56.2/conf/foo.server.xml
+      dest: apache-tomcat-9.56.2/temp/foo.server.xml
+      owner: foo
+      group: foo
+      mode: u=rw,g=r,o=r
+...
+#removing other permissions to the specific file this is another symbolic mode example
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  - name : copy file and remove others permissions 
+    ansible.builtin.copy:
+     src: jenkins/workspace/filename.war
+     dest: jenkins/project1/workspace/filename.war
+     owner: filename
+     group: filename
+     mode: u+rw,g-wx,o-rwx
+...
+# If follow=no, /path/to/link will become a file and be overwritten by contents of foo.conf
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  - name: destination file become a folder and content of source file is overwritten in that destiantion folder 
+    ansible.builtin.copy:
+     src : source path
+     dest: destination path
+...
+
+
+---
+- hosts: 172:90:0:0/16
+  gather_facts: true
+  become: true
+  - name: copy file to etc temp folder
+    ansible.buitin.copy:
+    src: c/users/sai/ansibleplaybook.yaml
+    dest: etc/temp/ansiblepalybook.yaml
+  - name: install git and jenkins
+    yum:
+     name: ['git','jenkins']
+...     
+
+---
+- hosts: all
+  gather_facts: true
+  become: true
+  - name: Print the gateway for each host when defined
+  ansible.builtin.debug:
+    msg: System {{ inventory_hostname }} has gateway {{ ansible_default_ipv4.gateway }}
+  when: ansible_default_ipv4.gateway is defined
+
+- name: Get uptime information
+  ansible.builtin.shell: /usr/bin/uptime
+  register: result
+
+- name: Print return information from the previous task
+  ansible.builtin.debug:
+    var: result
+    verbosity: 2
+
+- name: Display all variables/facts known for a host
+  ansible.builtin.debug:
+    var: hostvars[inventory_hostname]
+    verbosity: 4
+
+- name: Prints two lines of messages, but only if there is an environment value set
+  ansible.builtin.debug:
+    msg: 
+    - "Provisioning based on YOUR_KEY which is: {{ lookup('ansible.builtin.env', 'YOUR_KEY') }}"
+    - "These servers were built using the password of '{{ password_used }}'. Please retain this for later use."
+...
+

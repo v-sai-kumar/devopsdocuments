@@ -1,0 +1,469 @@
+apiVersion: v1
+kind: pod
+metadata: 
+  name: mynewpod
+  labels:
+    app: myapp
+    tier: front-end
+spec: 
+  - name: mycontainername
+    image: nginix
+    selector:
+      matchlabels:
+        app: myapp
+---
+# creating a pod with env variables assigned to it 
+
+apiVersion: v1  --> version of the kind 
+kind: pod --> type of service like pod , service ,replicaset , replica controller , daemon set ,deployment 
+metadata: 
+  name: postgres
+  labels:
+    tier: frontend
+spec: 
+  containers:
+  - name: postgress
+    image: postgress
+    env: 
+      - name: postgress_password
+        value: mysecretpassword
+---
+# creating a Replicaset for an application 
+
+apiVersion: apps/v1
+kind: Replicaset
+metadata:
+  name: frontend
+  labels:
+    app: mywebsite
+    tier: frontend
+spec: 
+  replicas: 4
+  template:
+    metadata: 
+      name: postgres
+      labels:
+        tier: frontend
+    spec: 
+      containers:
+        - name: postgress
+          image: postgress
+          env: 
+            - name: postgress_password
+              value: mysecretpassword
+    selector: 
+      matchLabels:
+        tier: frontend --> it should match pod labels inside template
+----
+# creating a Deployment for the application every thing common but in deployment kind will change as deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mydeplymentapp
+  labels:
+    app: readytodeploy
+    tier: fullstackdeployed
+spec:
+  replicas: 4
+  template:
+    metadata: 
+      name: postgres
+      labels:
+        tier: fullstack
+    spec: 
+      containers:
+        - name: postgress
+          image: postgress
+          env: 
+            - name: postgress_password
+              value: mysecretpassword
+  selectors:
+    matchlabels:
+      tier: fullstack
+---
+#creating a service for application 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  type: Node-port
+  ports:
+    - targetport: 80
+      port: 80
+      nodeport: 30007
+  selector: 
+    matchLabels:
+      app: myapp
+      tier: front-end
+---
+# stratgey for recreate deployment entire pods will we terminated and recreated at a time
+apiVersion: v1
+kind: deployment
+metadata:
+  name: mydeploymentapp
+  labels:
+    app: tomcat
+    tier: backend
+spec:
+  replicas: 4
+  strategy:
+    type: recreate
+    selectors:
+      matchlables:
+        tier: backend
+    template:
+      metadata: 
+       name: mynewpod
+      labels:
+       app: myapp
+        tier: front-end
+      spec: 
+        containername:
+        - name: mycontainername
+          image: nginix
+          selector:
+            matchlabels:
+            app: myapp
+# strategy for rolling update is some pods will be terminated and new version or image of pods will be ready like this all old pods will be terminated
+# and new pods of new verison will be created
+apiVersion: v1
+kind: deployment
+metadata:
+  name: mydeploymentapp
+  labels:
+    app: tomcat
+    tier: backend
+spec:
+    metadata:
+     labels:
+       app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+      ports:
+       - containerPort: 80
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+
+# deplyment with service for that tomcat application 
+---
+apiversion: v1
+kind: deployment
+metadata:
+  name: tomcat
+  labels: 
+    app: tomcat
+spec: 
+  replicas: 3
+  selector: 
+    matchlabels: 
+      name: tomcat
+  template:
+    metadata:
+      labels:
+        app: tomcat
+    spec:
+      containers:
+      - name: tomcat
+        image: dockerhandson/tomcat:1.2
+        ports:
+        - contianerport: 80
+          targetport: 80
+strategy: 
+  type: RollingUpdate
+  rollingUpdate:
+    maxunavailable: 1
+    minsurge: 25
+---
+# service for deployment 
+apiversion: v1
+kind: service
+metadata:
+  name: deployment-service
+spec:
+  selector:
+    matchlabels:
+      name: tomcat
+  ports:
+    - protocol: TCP
+      port: 80
+      targetport: 9376
+# mutiport service
+apiversion: v1
+kind: service
+metadata:
+  name: deployment-service
+spec:
+  selector:
+    matchlabels:
+      name: tomcat
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetport: 9376
+    - name: https
+      protocol: TCP
+      port: 443
+      targetport: 8080
+# nodeport service
+apiversion: v1
+kind: service
+metadata:
+  name: nodeport-service
+spec:
+  type: nodeport
+  selector: 
+    matchlabels:
+      name: jenkins
+  ports:
+    - port: 443
+      targetport: 8080
+      nodeport: 31206 # nodeport ranges from 30000 to 32767 
+
+# loadbalancer as a service
+apiversion: v1
+kind: service
+metadata:
+  name: LB-service
+spec:
+  selector: 
+    matchlabels:
+      name: jenkins
+  ports:
+  - protocol: TCP
+    port: 80
+    targetport: 8080
+  clusterip: 10.0.92.141
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 192.0.2.127
+# externalname as a service dns will use for accessing application
+# when looking up the host my-service.prod.svc.cluster.local
+apiversion: v1
+kind: service
+metadata: 
+  name: my-service
+  namespace: prod
+spec: 
+  type: ExternalName
+  externalname: my.database.example.com
+
+---
+# service creating and using for statful set to make application storage more presistant
+apiversion: v1
+kind: service
+metadata:
+  name: nginix
+  labels:
+    app: nginix
+spec:
+  ports:
+    port: 80
+  clusterip: none
+  selector:
+      app: nginix
+---
+apiversion: apps/v1
+kind: statfulset
+metadata:
+  name: web
+spec:
+  selector:
+    matchlabels:
+     app: nginix
+  servicename: nginix
+  replicas: 3
+  minreadysecounds: 10
+  template:
+    metadata:
+      labels:
+        app: nginix
+    spec:
+      terminationgraceperiod: 10
+      container: 
+      - name: nginix
+        image: myregistry/nginix:1.0
+        ports:
+        - containerport: 80
+          name: web
+        volumemounts:
+        - name: www
+          mountpath: usr/tmp/nginix/sai.html
+  volumeclaimtemplate:
+    - metadata:
+       name: www
+    spec:
+      accessmode: ["readwriteoncepod"]
+      storageclass: nginixstorageclass
+      resource:
+        requests:
+          storage: 1Gi
+---
+# pod with resource request and limits manifest file
+apiVersion: v1
+kind: pod
+metadata:
+  name: mypod
+  app: nginix
+spec: 
+  container:
+  - name: nginix
+    image: dockerhub/nginix/tmp/sai/html
+  ports:
+    - port: 80
+      containerport: 8080
+      targetport: 80
+  resource:
+    requests:
+     memory: 200mi
+     storage: 500mi
+    limits:
+     memory: 300mi
+     storage: 1000mi
+  volumemounts:
+    mountpath: awsec2/mystorage/nginix/*
+---
+# Resource quota in k8s
+apiVersion: v1
+kind: resourcequota
+metadata: 
+  name: RESOURCEQUOTA
+  namespace: default
+spec:
+  hard:
+    request.cpu: "1"
+    request.memory: 1 Gi
+    limit.cpu: "2"
+    limit.memory: 2 Gi
+    pods: 2
+---
+# Netwrork policy in kubernetes
+apiVersion: v1
+kind: networkpolicy
+metadata: 
+  name: networkpolicy
+  namespace: default  # we can give our own clustom namespace also 
+spec:
+  podselector:
+    matchlabels: 
+      app: mongo 
+  policytypes:
+    - Ingress  
+    - Egress
+  ingress:
+  - from:
+    - podselector:
+        matchlabels:
+          app: springapp
+    ports:
+    - protocol: TCP
+      port: 27098
+  egress: 
+  - to 
+     - ipBlock:
+         cidr: 10.0.0.0/24
+    ports:
+      - protocol: TCP 
+        port: 5876  
+---
+# Creating a persistant volume claim
+apiVersion: v1
+kind: persistantvolumeclaim
+metadata: 
+  name: pvc
+  namespace: test-ns
+spec:
+  storageclassname: "mystorage"
+  volumename: my-volume
+---
+#creating a persistant volume for pvc
+apiVersion: v1
+kind: persistantvolume
+metadata: 
+  name: pv
+spec:
+  storageclassname: "mystorage"
+  claimref:
+    name: pvc
+    namespace: test-ns
+---
+# creating NFS volume by storage 
+# You must have your own NFS server running with the share exported before you can use it.
+apiVersion: v1
+kind: pod
+metadata:
+  name: testpod
+spec:
+  container:
+  - name: my contianer
+    image: registry.k8s.io/webserver
+  volumeMounts:
+  - name: myvolume
+    mountpath: /my-nfs-data
+  volumes:
+    - name: myvolume
+      nfs:
+        server: my-nfs-server-example.com
+        path: /my-nfs-volume
+        readonly: true
+---
+# config maps we use to store configuration data  of the application
+
+volumes:
+  - name: config_volume
+    configMap:
+      name: log-config
+      items:
+        - key: log-value
+          path: log-value
+---
+# Replication controller example
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginix
+spec: 
+  replicas: 2
+  selector: 
+    app: nginix
+  template:
+    metadata:
+      name: nginix
+      labels:
+        app: nginix
+      spec:
+        containers:
+        - name: mycontainer
+          image: nginix
+          ports:
+          - containerport: 80
+---
+# daemon sets example
+apiVersion: v1
+kind: DaemonSet
+metadata:
+  name: daemonset
+  namespace: kube-system
+  labels:
+    k8s-app: fluentd image
+spec:
+  selector:
+    matchlabels:
+      name: daemonset
+  template:
+    metadata:
+      name: fluentd image
+      labels:
+        
+
+
+    

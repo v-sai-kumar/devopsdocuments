@@ -557,7 +557,101 @@ spec:
     kind: IngressParameters
     name: external-lb
 
+RBAC 
+---
+// refer RBAC pdf 
+RBAC Repository 
+rbac use for accessing only spcific user and group permissions
+rbac use 3 key concepts VERBS , API RESOURCE, SUBJECTS
+role 
+role binding cluster rolebinding 
 
+Create Role:
+-----------
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+name: devrole
+namespace: default
+rules:
+- apiGroups: [""]
+resources: ["pods"]
+verbs: ["get", "update", "list"] --> //user have specific access to pods like get ,, update ,list 
+
+
+Create RoleBinding :
+------------------
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+name: dev-role-binding-user
+namespace: default
+subjects:
+- kind: User
+name: Michale
+apiGroup: rbac.authorization.k8s.io
+roleRef:
+kind: Role
+name: devrole
+apiGroup: rbac.authorization.k8s.io
+
+HELM
+-----
+Helm is the package manager for Kubernetes. It allows you to
+install/deploy/remove/update applications on your Kubernetes cluster in a
+similar manner to yum/apt for Linux distributions.
+
+* Why use Helm?
+Kubernetes can be difficult to manage with all the objects you need to maintain
+(ConfigMaps/Secrets, pods, services, etc.). Helm manages all of this for you. Helm greatly simplifies the process of creating, managing, and deploying
+applications using Helm Charts.
+
+* What is a Helm Chart?
+In Helm, a chart is basically just a collection of manifest files organized in a
+specific directory structure that describe a related Kubernetes resource. There
+are two main components to a chart: templates and values. These templates and
+values go through a template rendering engine, producing a manifest that is
+easily digestible by Kubernetes.
+Helm uses Charts to pack all the required K8S components(Manifests) for an
+application to deploy, run and scale.
+
+Helm concepts | Charts
+=========================
+Helm packages are called charts, and they consist of a few YAML
+configuration files and some templates that are rendered into Kubernetes
+manifest files.
+
+
+Here is the basic directory structure of a chart:
+
+javawebapp
+├── Chart.yaml # Meta data information about chart.
+├── charts # define dependent helm chart names
+├── templates # Will maintain k8’s manifest files which is required for our application
+│ ├── deployment.yaml
+│ ├── hpa.yaml
+│ ├── ingress.yaml
+│ ├── service.yaml
+│ ├── serviceaccount.yaml
+│
+└── values.yaml # Will define default values which will be referred in templates.
+
+These directories and files have the following functions:
+ charts/: Manually managed chart dependencies can be placed in this
+directory, though it is typically better to use requirements.yaml to
+dynamically link dependencies.
+
+
+No more maintaining random groups of YAML files (or very long ones)
+describing pods, replica sets, services, RBAC settings, etc. With helm, there is a
+structure and a convention for a software package that defines a layer of
+YAML templates and another layer that changes the templates
+called values. Values are injected into templates, thus allowing a separation of
+configuration, and defines where changes are allowed. This whole package is
+called a Helm Chart.
+Essentially you create structured application packages that contain everything
+they need to run on a Kubernetes cluster; including dependencies the
+application requires
 
 
 

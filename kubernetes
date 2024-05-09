@@ -653,6 +653,41 @@ Essentially you create structured application packages that contain everything
 they need to run on a Kubernetes cluster; including dependencies the
 application requires
 
+Monitoring tool
+---------------
+Promethus
+* What Is Prometheus Monitoring?
+Prometheus is an open source system that collects and manages server and application metrics. It
+can also be configured to notify your team when an issue arises.
+
+* Prometheus is an opensource monitoring and alerting toolkit. Prometheus consists of several
+components some of which are listed below:
+ The Prometheus server which scrapes(collects) and stores time series data based on a pull
+mechanism.
+ A rules engine which allows generation of Alerts based on the scraped metrices.
+ An alertmanager for handling alerts.
+ Multiple integrations for graphing and dashboarding.
+
+Enterprises looking to decrease downtime and optimize resources can implement server
+monitoring using tooThe Prometheus monitoring system includes a rich, multidimensional data model, a concise and
+powerful query language called PromQL, an efficient embedded timeseries database.
+
+Alert Manager:
+The Alertmanager handles alerts sent by client applications such as the Prometheus server. It
+takes care of deduplicating, grouping, and routing them to the correct receiver integration such as
+email, PagerDuty, or OpsGenie. It also takes care of silencing and inhibition of alerts.
+
+Node Exporter:
+The Prometheus Node Exporter exposes a wide variety of hardware- and kernel-related
+metrics.That will periodically (every 1 second) gather all the metrics of your system. It will
+monitor your filesystems, disks, CPUs, memory but also your network statistics,
+
+Kube State Metrics:
+kube-state-metrics is a service that listens to the Kubernetes API server and generates metrics
+about the state of the objects, including deployments, nodes, and pods.ls like Prometheus and Grafana.
+
+
+
 
 
 

@@ -656,6 +656,7 @@ application requires
 Monitoring tool
 ---------------
 Promethus
+---------
 * What Is Prometheus Monitoring?
 Prometheus is an open source system that collects and manages server and application metrics. It
 can also be configured to notify your team when an issue arises.
@@ -686,6 +687,21 @@ Kube State Metrics:
 kube-state-metrics is a service that listens to the Kubernetes API server and generates metrics
 about the state of the objects, including deployments, nodes, and pods.ls like Prometheus and Grafana.
 
+Grafana
+-------
+Grafana is designed for analyzing and visualizing metrics such as system CPU, memory, disk and
+I/O utilization.
+Grafana allows you to query, visualize, alert on and understand your metrics no matter where
+they are stored. Create, explore, and share dashboards with your team and foster a data driven
+culture:
+
+Prerequisite:
+1) Kubernetes Cluster With Storage Class Configured(Dynamic Provisioning).
+If Storage Class is not Configured then make persistence enabled as false in helm
+values files # Which is not suggestable as if pods are terminated and recreated we
+will lost the data.
+2) Kubernetes nodes with minimum 4GB RAM With 2 Core Processer.
+3) Server which has kubectl & Helm Configured.
 
 
 

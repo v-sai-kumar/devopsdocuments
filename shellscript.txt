@@ -1,0 +1,68 @@
+#!/bin/bash 
+#!/bin/dash
+#!/bin/sh # based on os use it
+
+sh or ./ will execute the script .sh extension
+
+ps -ef process it will display 
+
+set -x # debugmode
+
+ps -ef | grep "amazon" # it will find the keyword amazon with processid
+
+getmeusernames | grep "sai" # it will find the usernames
+
+./test.sh | grep 1 # first cmnd pass parameters to 2nd cmnd 
+
+date | echo "date is" # it wont pront the date because it is a system default command
+
+ps -ef | grep amazon | awk -F" " '{print $2}' # it will retrive the 2 columns of the specific process
+
+set -e # exit the script when there is an error best  practice 
+NOTE : it will look for the last command only 
+eg: kfkkfjig | echo #it will execute last command
+
+set -o # pipe fail is important  when u use set -o it will check every cmnd and execute 
+
+set -exo pipefail # dont merge all commands like this
+
+* how to get the logfile errors when there is a big file
+
+curl https:/GitHub.com/v-sai-kumar/practice.log | grep ERROR # it will get the error logs only 
+
+curl -X GET api.foo.com 
+
+wget will download that file 
+
+sudo find / -name filename #/ indicates everthing find 
+
+sudo su - 
+
+if else condition
+
+if [expression]
+then
+
+else
+
+fi
+
+for i in {1.100}; do echo $1; done
+
+trap it is used to trap the signal 
+
+kill -9 pid #-9 instructs the process to be killed 
+
+signals : yes ctrl c 
+sighup
+kill
+sigint
+sigkill
+sigtrap etc ..
+
+
+
+
+
+
+

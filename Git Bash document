@@ -62,7 +62,7 @@ git stash apply(resume)
 rebase vs merge
 ---------------
 we can integrate changes from one branch to another by using rebase and merge cmnds
-dev to master when we use merge means it will not display commitid only single commit id we can see
+dev to master when we use rebase means it will not display commitid only single commit id we can see
 dev to master when we use merge means it will  display commitids history
 
 .git ignore

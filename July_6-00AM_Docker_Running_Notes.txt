@@ -2,7 +2,7 @@ Docker Is a containerization software using which we can create containers.
 
 Docker is for Devlepors, Admins(DevOps) to build and run applications as contianers.
 
-Docker Editions:
+Docker Editions: 
 
 Docker CE --> Comunity Edition --> Open Source(Free)
 
@@ -934,7 +934,7 @@ Volume Driver Plugin --> It's a piece of code or software which is responsible f
  docker run -d -p 27017:27017 -v ebsvolume:/data/db  --name mongo -e MONGO_INITDB_ROOT_USERNAME=devdb -e MONGO_INITDB_ROOT_PASSWORD=devdb1234  --network springappnetwork mongo
 
 
-Map Volumes As Read Only using below option>
+Map Volumes As Read Only using below option
 -v <volumeName/BindMount>:<containerPath>:ro
 
 
@@ -1083,8 +1083,11 @@ networks:
     external: true
 	
 	
-If docker compose file with custom name.	
+If docker compose file with custom name syntax.	
 docker-compose -f <CustomeComposeFileName>.yml <command>
+docker-compose -f deployment.yml config
+docker-compose  -f deployment.yml up -d
+docker-compose -f deployment.yaml down
 
 Ex:
 docker-compose -f docker-compose-springapp.yml config
@@ -1126,18 +1129,13 @@ docker-compose up
 # In docker swarm we will use below command to deploy services using docker compose.
 docker stack deploy --compose-file docker-compose.yml <stackName>
 
-
 Containerization Tools: docker,rocker(rkt),coreos
-
 Container Orchestration Tools: docker swarm,kubernetes,openshift ..etc
-
-
 
 H.A --> HighAvailability
 F.T --> Fault Tolarence
 Scalability
 L.B
-
 
 # In Normal(Standalone) Docker Server We can use below command to create a container.
 docker run -d -p <hostPort>:<containerPort> --name <containerName> <imageName>
@@ -1153,7 +1151,6 @@ docker stack deploy --compose-file docker-compose.yml <stackName>
 
 
 Note: Make Sure You Open Required/All Ports in AWS Security Groups.
-
 ======================================================================
 # Initialize docker swarm cluster by exeuting below command on docker server which you want make it as Manager
 
@@ -1190,31 +1187,22 @@ docker service create  -p 8080:8080 --name javawebapp dockerhandson/java-web-app
 
 docker service ls
 
-docker service ps <servcieNAme>
+docker service ps <ServcieName>
 ex:
 docker service ps javawebapp
 
 docker service scale <serviceName>=<noOfReplicas>
 docker service scale javawebapp=3
-
-docker service scale javawebapp=2
-
+docker-service scale javawebapp=5
 
 # While creating service we can mention number of replicas as below
 docker service create  -p 9090:8080 --name mavenwebapp --replicas 2 dockerhandson/maven-web-app
 
-
-
-
 # Global Mode
 docker service create  --name mavenwebapp --mode global   -p 9090:8080 dockerhandson/maven-web-app
 
-
-
-
 # User constriants to create containers in specific docker hosts based on condtion
 docker service create  -p 8080:8080 --name javawebapp --replicas 2 --constraint 'node.role==worker' dockerhandson/java-web-app
-
 
 # Add labels to node
 docker node update --label-add key=value <nodeid>
@@ -1229,13 +1217,11 @@ docker node update --availability drain <NodeID>
 # Make Node Active in Cluster
 docker node update --availability active <NodeID>
 
-
 # Create a service with a rolling update policy
 docker service create --replicas 2  --name javawebapp  --update-delay 30s --update-parallelism 1  dockerhandson/java-web-app:1
 
 # Update service image without down time.
 docker service update --image dockerhandson/java-web-app:2 javawebapp
-
 
 docker stack deploy --compose-file docker-compose.yml springmongo
 
@@ -1302,8 +1288,6 @@ docker swarm leave
 # Remove node from Manager
 docker node rm <nodename>
 
-
-	
 # Use private Nexus As Private Repo repo's.
 #Send registry authentication details to swarm agents using --with-registry-auth	
 

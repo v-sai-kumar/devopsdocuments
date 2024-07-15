@@ -1233,7 +1233,6 @@ docker stack services <stackName>
 
 docker stack ps <stackName>
 
-
 version: '3.1'
 
 services:
@@ -1268,16 +1267,16 @@ services:
     - MONGO_INITDB_ROOT_USERNAME=devdb
     - MONGO_INITDB_ROOT_PASSWORD=devdb1234
     volumes:
-      - mongodb:/data/db
+      - mongodb:/data/db --> volume path we have given here
     restart: always
-    networks:
-    - flipkartnetwork
-    
-volumes:
+    networks: 
+    - flipkartnetwork --> below created network name
+
+volumes:  --> creating a volume 
   mongodb:
   
     
-networks:
+networks: --> creating a network 
   flipkartnetwork:
     external: true
 
@@ -1295,10 +1294,10 @@ If you are using insecure(http) registry. Make sure you have flow below step in 
 
 1.	Login as root user
 2.	Go to /etc/docker
-      cd /etc/docker
+         cd /etc/docker
 3.	Then create a file called daemon.json 
-      vi /etc/docker/daemon.json
-4.	Write these script in daemon.json
+         vi /etc/docker/daemon.json
+4.	Write these script in daemon.json [add insecure-registries line]
 
 {
   "insecure-registries": [ "<IPOfPrivateRepo>:<dockerRepoPort>" ]
@@ -1307,7 +1306,7 @@ If you are using insecure(http) registry. Make sure you have flow below step in 
 ex:
 
 {
-  "insecure-registries": [ "172.31.45.81:8083" ]
+  "insecure-registries": [ "172.31.45.81:8083" ] --> nexus ip addr
 }
 
 Note: Replace with your nexus ip instead of 172.31.45.81. Make Sure You Opened 8083 port in nexus server security
@@ -1320,24 +1319,24 @@ group.
 6.	Restart docker
 sudo systemctl restart docker
 
-Note: Step 1 to 6 is not required if we are using secure repo's.Like ECR which is already confifured with https.
+[ Note ]: Step 1 to 6 is not required if we are using secure repo's.Like ECR which is already configured with https.
 
-Before Pushing Image From Jenins execute docker login
+Before Pushing Image From Jenkins execute docker login
 
 docker login -u <username> -p <password>  <URL>
 Ex:
 docker login -u admin -p admin123 172.31.45.81:8083	
 	
-Execute docker login only in master
+Execute docker login only in master node
 
 docker login -u <username> -p <password>  <URL>
 
-docker login -u admin -p admin123 172.31.45.81:8083	
+docker login -u admin -p admin123 172.31.45.81:8083
 
-# While Creating a Service Or Stack send registry authentication details to swarm agents using --with-registry-auth	
+service (or) stack --> authenticate with swarm agent --> --with-registry-auth <imagename> --> image name here is stackname 
+
+# While Creating a Service (or) Stack send registry authentication details to swarm agents using  --with-registry-auth	
 	
 docker service create  -p <hostPort>:<containerPort> --name <serviceName> --replicas 1  --with-registry-auth <imageName>
 
 docker stack deploy --compose-file docker-compose.yml  --with-registry-auth <stackName>
-
-

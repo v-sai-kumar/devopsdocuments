@@ -1,41 +1,43 @@
 service can be accessed only with in pod
 
-pods will have unique ip address given by 
+Each Pod in Kubernetes gets a unique IP address managed by the CNI (Container Network Interface) plugin. This unique IP addressing scheme allows for 
+direct communication between Pods, simplifies service discovery, and ensures network isolation. The CNI plugin and its IPAM component 
+handle the assignment and management of these IP addresses, adhering to the Kubernetes networking model
 
-network namespace can be found under var/run/netns
+network namespace can be found under var/run/netns 
 
-CRI plugin creates a network names0pace 
+Yes, the Container Runtime Interface (CRI) plugin  create a network namespace
 
-when we not sepcify any namespace its used default namespace
+when we not sepcify any namespace its used default namespace 
 
 within namespace object name should be unique 
 
-we can use same object name for differnet namespaces
+we can use same object name for diffrent namespaces
 
-we have to carefully give selectors and labels for the specific pod to access or else we get error 
+we have to carefully give selectors and labels for the specific pod to access (or) else we get error 
 
 to enter inside container from pod we use --> kubectl exec -it podname -n namespacename-ns -- sh
 in  the above if we have more continers in the pod it will exec by index value 0th index first
 
-if we have more contianers in the pod we use contianer name -->kubectl exec -it podname -c contianername -n namespacename-ns -- sh
+if we have more contianers in the pod we use contianer name -->kubectl exec -it podname -c contianername -n namespacename-ns  --sh
 
-we communicate b/w pods within node by using localnetwork or pod ip 
+we communicate b/w pods within node by using localnetwork (or) pod ip 
 
 service will act as a loadbalancer and service discovery 
- *cluster port we can access within cluster only 
- *nodeport we can access from outside cluster webpage 30000 to 32767 node port range
+ *cluster port we can access within cluster only --> container we can access internally only 
+ *nodeport we can access from outside cluster webpage 30000 to 32767 node port range --> container we can access externally like webpages by giving port no
 
 if we have 2 pods first pod will be executed if we execute pod 
 
 if we want to execute specific container in a pod we have to give container name 
 eg - kubectl exec -it podname -c containername bash 
 
-curl -v servicename/containername --> communicates with a web or application serverby specifying a relevant URL and the data that need to be sent or received 
+curl -v servicename/containername --> communicates with a web (or) application serverby specifying a relevant URL and the data that need to be sent or received 
 
 imp:
 if 2 pods are in same namespace we communicate by using fqdn (FULLY QULIFIED DOMAIN NAME)
 eg: curl -v servicename.namespacename.svc.cluster.local/contianerrname 
-curl -vL mavenwebappsvc.test-ns.svc.cluster.local/mavenwebapplication 
+curl -v mavenwebappsvc.test-ns.svc.cluster.local/mavenwebapplication 
 
 Multicontainer pod.yml
 we have to give different port numbers so we can use multicontainers
@@ -83,13 +85,14 @@ CONTROLL PROBES
 ---------------
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 
-
-
 probe means health check 
+
 Types of probe
+--------------
 The kubelet can optionally perform and react to three kinds of probes on running containers:
 
 livenessProbe
+--------------
 Indicates whether the container is running. If the liveness probe fails, the kubelet kills the container, and the container is subjected to its restart policy. If a container does not provide a liveness probe, the default state is Success.
 
 2 types we have (Define a liveness command  / Define a liveness HTTP request)
@@ -146,8 +149,8 @@ livenessProbe:
     path: /healthz
     port: liveness-port
 
-
 readinessProbe
+---------------
 Indicates whether the container is ready to respond to requests. If the readiness probe fails, the endpoints controller removes the Pod's IP address from the endpoints of all Services that match the Pod. The default state of readiness before the initial delay is Failure. If a container does not provide a readiness probe, the default state is Success.
 
  ReadynessProbe:
@@ -159,8 +162,8 @@ Indicates whether the container is ready to respond to requests. If the readines
       periodSeconds: 5
 The periodSeconds field specifies that the kubelet should perform a liveness probe every 5 seconds. The initialDelaySeconds field tells the kubelet that it should wait 5 seconds before performing the first probe. To perform a probe, the kubelet executes the command cat /tmp/healthy in the target container. If the command succeeds, it returns 0, and the kubelet considers the container to be alive and healthy. If the command returns a non-zero value, the kubelet kills the container and restarts it.
 
-
 startupProbe
+-------------
 Indicates whether the application within the container is started. All other probes are disabled if a startup probe is provided, until it succeeds. If the startup probe fails, the kubelet kills the container, and the container is subjected to its restart policy. If a container does not provide a startup probe, the default state is Success.
 
 HPA
@@ -702,12 +705,3 @@ values files # Which is not suggestable as if pods are terminated and recreated 
 will lost the data.
 2) Kubernetes nodes with minimum 4GB RAM With 2 Core Processer.
 3) Server which has kubectl & Helm Configured.
-
-
-
-
-
-
-
-
-

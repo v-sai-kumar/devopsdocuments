@@ -179,10 +179,10 @@ to the Pods that are already running for the workload.
 
 If the load decreases, and the number of Pods is above the configured minimum, the HorizontalPodAutoscaler instructs the workload resource (the Deployment, StatefulSet, or other similar resource) to scale back down.
 
-he HPA controller will increase and decrease the number of replicas (by updating the Deployment) to maintain an average CPU utilization across all Pods of 50%. The Deployment then updates the ReplicaSet 
+The HPA controller will increase and decrease the number of replicas (by updating the Deployment) to maintain an average CPU utilization across all Pods of 50%. The Deployment then updates the ReplicaSet 
 - this is part of how all Deployments work in Kubernetes - and then the ReplicaSet either adds or removes Pods based on the change to its .spec.
 
-kubernetes we will create normally deplyment and attach HPA  to the deplyment we will use HPA scaletargetref (kind , name) to the deployment section same kind and name should match then only HPA will 
+kubernetes we will create normally depolyment and attach HPA  to the depolyment we will use HPA scaletargetref (kind , name) to the deployment section same kind and name should match then only HPA will 
 work as expected
 spec:
   scaleTargetRef:
@@ -191,6 +191,30 @@ spec:
     name: php-apache
   minReplicas: 1
   maxReplicas: 10
+
+runtime give [kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10]
+
+declarative giving 
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: php-apache
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+
 
 volumes
 -------
@@ -246,20 +270,19 @@ Access to the host filesystem can expose privileged system credentials (such as 
 Pods with identical configuration (such as created from a PodTemplate) may behave differently on different nodes due to different files on the nodes.
 
 Some uses for a hostPath are:
-unning a container that needs access to node-level system components (such as a container that transfers system logs to a central location, accessing those logs using a read-only mount of /var/log)
+running a container that needs access to node-level system components (such as a container that transfers system logs to a central location, accessing those logs using a read-only mount of /var/log)
 making a configuration file stored on the host system available read-only to a static pod; unlike normal Pods, static Pods cannot access ConfigMaps
 
 ---
 # This manifest mounts /data/foo on the host as /foo inside the
 # single container that runs within the hostpath-example-linux Pod.
-#
 # The mount into the container is read-only.
 apiVersion: v1
 kind: Pod
 metadata:
   name: hostpath-example-linux
 spec:
-  os: { name: linux }
+  os: { name: linux } 
   nodeSelector:
     kubernetes.io/os: linux
   containers:
@@ -404,9 +427,7 @@ You have successfully set your Docker credentials in the cluster as a Secret cal
 To get the output from the secret
 kubectl get secret regcred --output=yaml  
 
-
 Note: To use image pull secrets for a Pod (or a Deployment, or other object that has a pod template that you are using), you need to make sure that the appropriate Secret does exist in the right namespace. The namespace to use is the same namespace where you defined the Pod.
-
 
 Another private registry EKS 
 AWS EKS

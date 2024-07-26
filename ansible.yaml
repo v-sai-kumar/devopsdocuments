@@ -17,12 +17,95 @@ create
 add groups
 ungroupped servers
 ip address of slave to be stored to communicate with master node and we use [ recordname and hostname ] of particular microservice in real time 
+
 group of servers
 [cart]
 roboshop-in-prod-app-cart-01.joindevops.online
 roboshop-in-prod-app-cart-02.joindevops.online
 like this logically we place servers in inventory file 
 ansible -i inventory cart --list-hosts 
+
+ansible topics:
+varibles
+- commandline varibles
+- playlevel varibles
+- tasklevel
+- varibales by file
+-inventory file
+-prompt varibles
+
+datatypes
+-int
+-bool
+-map
+-string
+-list
+
+conditions
+-when
+
+loops
+- name: loops example
+  hosts: server
+  become: yes
+  tasks:
+  - name: print the names
+  ansible.builtin.debug:
+    msg: "hello {{item}}"
+  loop:
+  - sai
+  - kumar
+  - v
+---
+conditons
+-name: conditon checking
+ hosts: serverip
+ become: yes
+ tasks:
+ - name: check user exists
+   ansible.builtin.command:
+   register: out #out is varible
+   ignore_errors = true
+    - name: print the command output
+      ansible.builtin.debug:
+        msg: "output is {{ out }}"  # if user exists it will return the msg
+
+    - name: print output return code
+      ansible.builtin.debug:
+        msg: "{{ out.rc }}"   # check out.rc if not zero then create a user by using when condition 
+
+    - name: create a user
+      become: yes
+      ansible.builtin.user:
+        name: roboshop
+      when: out.rc != 0 # when out.rc is not zero create a user 
+---
+# condition for msg to print
+- name: msg to print if name is matched
+  hosts: servers
+  vars:
+  - name: "devops"
+  tasks:
+  - name: print msg of name
+    ansible.builtin.debug:
+      msg: "hello devops "
+    when: name = "devops"
+ ----
+ # to install multiple packages
+ - name: install list of packages
+   hosts: servers
+   become: yes
+   tasks:
+   - name: list of packages install
+     ansible.builtin.yum:
+      name: {{item}}
+      state: installed
+    # list of string to install packages
+    loop:
+    -nginx
+    -git
+    -mongodb
+   
 --- 
 - hosts: 10.102.8.09
   gather_facts: true  # BY default yes if we not specify also no problem 

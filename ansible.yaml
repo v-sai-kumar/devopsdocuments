@@ -1,3 +1,28 @@
+ansible is a configuration managemnet tool
+written in python
+push and pull based mechanism
+agent is reqired for pull based architecture we use in terraform userdata to install ansible playbooks by using pull mechanism
+can scale many servers , can take care of validation 
+declarative language and hetrogeneous 
+adhoc commands --> emergency purpose we use 
+
+install ansible 
+yum install ansible -y
+in slave add autherized key of master node so both can communicate each other
+so we can install required softwares and remove , update etcc... by remotly from master node it self with out logging manully into slave node and install 
+playbook --> keep all modules , collections  in a yaml file and run that file
+
+create 
+1 .inventory file
+add groups
+ungroupped servers
+ip address of slave to be stored to communicate with master node and we use [ recordname and hostname ] of particular microservice in real time 
+group of servers
+[cart]
+roboshop-in-prod-app-cart-01.joindevops.online
+roboshop-in-prod-app-cart-02.joindevops.online
+like this logically we place servers in inventory file 
+ansible -i inventory cart --list-hosts 
 --- 
 - hosts: 10.102.8.09
   gather_facts: true  # BY default yes if we not specify also no problem 
@@ -36,7 +61,7 @@
      dest: 'etc/var/lib/docker'
    - name: move to directory
      become: true
-     shell: 'mv c:/user/2268009/ansible.yaml /temp'
+     shell: 'mv c:/user//ansible.yaml /temp'
 ...
 # installing packages using name keyword as a list
 ---
@@ -138,7 +163,7 @@
      dest: 'etc/var/lib/docker'
    - name: move to directory
      become: true
-     shell: 'mv c:/user/2268009/ansible.yaml /temp'
+     shell: 'mv c:/user/devops/ansible.yaml /temp'
 ...
 
 

@@ -26,7 +26,7 @@ terraform plan: The terraform plan command is used to create an execution plan. 
 set of changes matches your expectations without making any changes to real resources or to the state.
 
 terraform apply: terraform apply to actually create the infrastructure on AWS.
-terraform apply -auto-approve
+terraform apply -auto-approve to autoapprove for the server to automatically install server
 
 terraform destroy: The terraform destroy command is used to destroy the Terraform-
 managed infrastructure.
@@ -96,4 +96,10 @@ An Elastic IP address is a reserved public IP address that you can assign to any
 To allocate an Elastic IP address to your account in a particular region.
 
 When you associate an Elastic IP address with an EC2 instance, it replaces the default public IP address.
+
+for_each
+userdata
+loops
+module developer
+module user
 

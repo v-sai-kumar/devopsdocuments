@@ -24,6 +24,8 @@ playbook --> keep all modules , collections  in a yaml file and run that file
 
 ansible.builtin.user
                 stats
+                yum
+                copy
                 debug
                 unarchive
                 geturl

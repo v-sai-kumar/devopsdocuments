@@ -36,7 +36,9 @@ YAML SYNTAX
    ansible.builtin.debug:
     msg: "nginx installed sucessfully"
   
-we create microservice by using ansible and cart.conf and cart.yml files we use project.conf file to pass inbound traffic to https:cart/joindevops.com
+we create microservice by using ansible and cart.conf and cart.yml [mongodb.repo , mongodb.yml  we use database configurations ] files we use project.conf file to pass inbound traffic to https:cart/joindevops.com
+3306 mysql service is running on portno 
+like all services  will run on specific port 
 
 create 
 1 .inventory file --> slavenode ip address or in realtime recordname.hostname 

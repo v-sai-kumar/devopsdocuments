@@ -1,19 +1,45 @@
-ansible is a configuration managemnet tool
-written in python
+ansible is a configuration managemnet tool (servers install apps ,packages,files etc.. we install remotely with out login into particular server)
+written in python 
 push and pull based mechanism
+push --> masternode to slavenode install cconfigurations
+pull --> slavenode to masternode checck for installion on slavenode
+push based
+amazon --> order --> dc --> home 
+pull based we install agent for pull based architecture
+amazon --> order --> dc <--- home
+amazon --> order --> dc --> home
+timewast 
+money 
+
 agent is reqired for pull based architecture we use in terraform userdata to install ansible playbooks by using pull mechanism
-can scale many servers , can take care of validation 
+can scale many servers , can take care of validation  
 declarative language and hetrogeneous 
 adhoc commands --> emergency purpose we use 
 
 install ansible 
-yum install ansible -y
+yum install ansible -y 
+
 in slave add autherized key of master node so both can communicate each other
-so we can install required softwares and remove , update etcc... by remotly from master node it self with out logging manully into slave node and install 
+so we can install required softwares and remove , update etcc... by remotly from master node it self with out logging manully into slave node and install...
 playbook --> keep all modules , collections  in a yaml file and run that file
+YAML SYNTAX
+-----------
+- name: my yamil file
+  hosts: 172.56.90.3 # slave server
+  become: yes # it act as root user
+  tasks:
+  -name: install nginix
+   ansible.builtin.yum:
+   -name: nginx
+    state: present
+  when: state==present
+  -name: msg to display nginix app installed
+   ansible.builtin.debug:
+    msg: "nginx installed sucessfully"
+  
 
 create 
-1 .inventory file
+1 .inventory file --> slavenode ip address or in realtime recordname.hostname 
 add groups
 ungroupped servers
 ip address of slave to be stored to communicate with master node and we use [ recordname and hostname ] of particular microservice in real time 
@@ -55,7 +81,7 @@ loops
   loop:
   - sai
   - kumar
-  - v
+  - vasamsetty
 ---
 conditons
 -name: conditon checking

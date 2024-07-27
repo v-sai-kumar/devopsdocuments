@@ -21,6 +21,16 @@ yum install ansible -y
 in slave add autherized key of master node so both can communicate each other
 so we can install required softwares and remove , update etcc... by remotly from master node it self with out logging manully into slave node and install...
 playbook --> keep all modules , collections  in a yaml file and run that file
+
+ansible.builtin.user
+                stats
+                debug
+                unarchive
+                geturl
+                systemd
+                service
+                command --> used for linux commands
+                
 YAML SYNTAX
 -----------
 - name: my yamil file

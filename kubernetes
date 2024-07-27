@@ -66,7 +66,7 @@ Furthermore, as users on each pod will be mapped to different non-overlapping us
 
 
 PODLIFECYCLE
------------
+-------------
 https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/
 
 Pods follow a defined lifecycle, starting in the Pending phase, moving through Running if at least one of its primary containers starts OK, and then through either the Succeeded or Failed phases depending on whether any container in the Pod terminated in failure.
@@ -145,6 +145,7 @@ ports:
   containerPort: 8080
 
 livenessProbe:
+-------------
   httpGet:
     path: /healthz
     port: liveness-port
@@ -698,16 +699,19 @@ monitoring using tooThe Prometheus monitoring system includes a rich, multidimen
 powerful query language called PromQL, an efficient embedded timeseries database.
 
 Alert Manager:
+--------------
 The Alertmanager handles alerts sent by client applications such as the Prometheus server. It
 takes care of deduplicating, grouping, and routing them to the correct receiver integration such as
 email, PagerDuty, or OpsGenie. It also takes care of silencing and inhibition of alerts.
 
 Node Exporter:
+--------------
 The Prometheus Node Exporter exposes a wide variety of hardware- and kernel-related
 metrics.That will periodically (every 1 second) gather all the metrics of your system. It will
 monitor your filesystems, disks, CPUs, memory but also your network statistics,
 
 Kube State Metrics:
+-----------------
 kube-state-metrics is a service that listens to the Kubernetes API server and generates metrics
 about the state of the objects, including deployments, nodes, and pods.ls like Prometheus and Grafana.
 

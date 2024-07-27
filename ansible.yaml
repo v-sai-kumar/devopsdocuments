@@ -8,8 +8,7 @@ amazon --> order --> dc --> home
 pull based we install agent for pull based architecture
 amazon --> order --> dc <--- home
 amazon --> order --> dc --> home
-timewast 
-money 
+
 
 agent is reqired for pull based architecture we use in terraform userdata to install ansible playbooks by using pull mechanism
 can scale many servers , can take care of validation  
@@ -37,6 +36,7 @@ YAML SYNTAX
    ansible.builtin.debug:
     msg: "nginx installed sucessfully"
   
+we create microservice by using ansible and cart.conf and cart.yml files we use project.conf file to pass inbound traffic to https:cart/joindevops.com
 
 create 
 1 .inventory file --> slavenode ip address or in realtime recordname.hostname 

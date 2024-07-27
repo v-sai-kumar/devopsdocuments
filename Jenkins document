@@ -139,9 +139,17 @@ pipeline{
      }
    }
   }
+ post{
+   always{
+    cleanws()
+    echo "cleaned up workspace"
+   }
+ }
 }
 
+
 declarative pipeline example
+---------------------------
 pipeline {
     agent any
 
@@ -191,7 +199,15 @@ pipeline {
                 }
             }
         }
-     stage('')
+     stage('Deploy into kubernetes cluster'){
+        steps{
+             script {
+                    withCredentials([file(credentialsId: KUBECONFIG_CREDENTIALS, variable: 'KUBECONFIG')]) {
+                        sh 'kubectl apply -f k8s/deployment.yaml' 
+              }
+          }
+     }
+   
     }
 
     post {

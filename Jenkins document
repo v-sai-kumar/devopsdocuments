@@ -8,9 +8,13 @@ jacoco-->to generate code coverage of java projects
 ssh agent
 email notification
 
+ansi colur pulgin for stages 
+
 audit trail->details of which user trigger, delete, created the job all actions is saved in this
 
 sonarqube scanner--> directly configure in jenkins dashboard
+docker also configure with docker registry cred
+and kuberntes also configure 
 
 job config history --> which user config, what cofig, every thing history is stored in this we can restore back old configs also by using restore project option in this plugin
 schedule build
@@ -18,7 +22,8 @@ schedule build
 blue ocean--> completely changes the gui console
 
 pulbish over ssh -->
-ThinBackup
+ThinBackup --> partial backup of jobs
+
 
 Build Name Setter--> custom build name we can set in place of secquence no's
 restart
@@ -63,9 +68,9 @@ Declarative pipeline
 master slave architecture
 --------------------------
 
-1 master node
+1 master node 
 
-2 slave nodes
+2 slave nodes 
 
 in master node only we install jenkins
 
@@ -114,6 +119,87 @@ but for pipeline projects we give
 agent{
 
 label "slave1"
+}
+
+declartive pipeline
+-------------------
+pipeline{
+  agent{
+   label "agent1"
+  }
+  stages{
+   stage('build)'{
+     steps{
+         mvn clean package
+     }
+   }
+   stage('artifact upload'){
+     steps{
+        nexus Artifactuploader 
+     }
+   }
+  }
+}
+
+declarative pipeline example
+pipeline {
+    agent any
+
+    environment {
+        // Nexus repository details
+        NEXUS_VERSION = 'nexus3'
+        NEXUS_PROTOCOL = 'http'
+        NEXUS_URL = 'your-nexus-url'
+        NEXUS_REPOSITORY = 'your-repo'
+        NEXUS_CREDENTIAL_ID = 'your-credentials-id'
+        GROUP_ID = 'com.example'
+        ARTIFACT_ID = 'myapp'
+        VERSION = '1.0.0'
+        PACKAGING = 'jar'
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git url: 'https://github.com/your-repo.git', branch: 'main'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Replace with your build steps (e.g., using Maven or Gradle)
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Upload Artifact to Nexus') {
+            steps {
+                script {
+                    nexusArtifactUploader artifacts: [[
+                        artifactId: "${ARTIFACT_ID}",
+                        classifier: '',
+                        file: "target/${ARTIFACT_ID}-${VERSION}.${PACKAGING}",
+                        type: "${PACKAGING}"
+                    ]],
+                    credentialsId: "${NEXUS_CREDENTIAL_ID}",
+                    groupId: "${GROUP_ID}",
+                    nexusUrl: "${NEXUS_URL}",
+                    nexusVersion: "${NEXUS_VERSION}",
+                    protocol: "${NEXUS_PROTOCOL}",
+                    repository: "${NEXUS_REPOSITORY}",
+                    version: "${VERSION}"
+                }
+            }
+        }
+     stage('')
+    }
+
+    post {
+        always {
+            echo 'Cleaning up workspace...'
+            cleanWs()
+        }
+    }
 }
 
 Build with Parameter

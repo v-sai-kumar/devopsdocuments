@@ -31,7 +31,8 @@ ansible.builtin.user
                 geturl
                 systemd
                 service
-                command --> used for linux commands
+                shell  # module used to execute the commands inside the server you can get the access to user environment and varible
+                command --> used for linux commands you may get the access to user environment and varible
                 
 YAML SYNTAX
 -----------

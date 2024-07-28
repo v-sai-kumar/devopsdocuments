@@ -7,37 +7,51 @@ It will generate the report if any issues in html format/PDF format.
 It is a web based tool supports multiple languages (Java, C#, JS...) It will support multi OS platform (Windows, MAC, Linux...).
 
 It will support multiple databases (MySQL, Oracle, Microsoft SQL Server, PostgreSQL.)
+MySQL: 3306
+Oracle: 1521
+Microsoft SQL Server: 1433
+PostgreSQL: 5432
 
 Supports multiple browsers (IE, Microsoft Edge, FF, Chrome, Safari)
 
 Sonar qube uses -->It will identifies the below category of issues.
 
-Duplicated code
-Coding standards
+Duplicated code 
+Coding standards industry coding standards
+code coverage [80%]
 Unit tests
 Complex code
 Comments
-Potential Bugs
+Potential Bugs 
 Architecture & Design
 
-Maven/Tomcat/-> Developed using Java - supports only Java PL
-SonarQube/Nexus/Jenkins -> Developed using this Java -> Supports multiple  Langs..
+Maven/Tomcat/-> Developed using Java - supports only Java  programing language
+SonarQube/Nexus/Jenkins -> Developed using this Java -> Supports multiple  Langs.. 
 
 -->Relational DBS
 Oracle 
 my sql
- post gear
- MS SQL Server
+post gear
+MS SQL Server
 DB2
+
 is SQL Database?
-SELECT FROM EMPLOYEE;
-rows and columns  
-Table's format
+Yes, SQL (Structured Query Language) is not a database itself but a standardized programming language specifically designed for managing and manipulating relational databases. SQL is used to perform tasks such as querying, updating, inserting, and deleting data in a database. It also includes commands for creating and modifying database structures, such as tables, indexes, and views.
+
+Databases that use SQL for these operations are referred to as SQL databases or relational databases. Examples of SQL databases include:
+
+1. **MySQL**
+2. **Oracle Database**
+3. **Microsoft SQL Server**
+4. **PostgreSQL**
+5. **SQLite**
+
+These databases use SQL as their primary language for interacting with the data they store.
 
 NO SQL DBS/ NON RELATIONAL DBS
 MONGO DB
 Cloudant
-JSon format
+JSon format 
 document == Table
 
 H2 is inbuilt sonar qube  db server
@@ -53,9 +67,10 @@ Install sonarqube
 Sonarqube scanner /sonarqube/report generate /errors send to developer
 
 
-1) Vaulnarabilities
+1) Vulnerabilities
 2) Bugs
-3) Code Smells
+3) Code Smells 
+used to identify in low level environment
 
 -->Installation 
 Install SonarQube Server
@@ -64,7 +79,7 @@ admin admin  = username password
 Tomcat/Jboss/Wildfly/Jenkins 8080 I
 Nexus/ Jfrog artifactiry --> 8081
 SonarQube -> 9000
-MySQL DB 3306
+MySQL DB 3306 
 
 In pom.xml update ip address  , token
 <sonar.login> tag use for token update
@@ -72,9 +87,9 @@ In pom.xml update ip address  , token
 mvn package 
 plugin name  is first sonar
 mvn sonar: sonar  --> sonarqube scan will perform 
-Goal name  is 2nd sonar
+Goal name  is 2nd sonar 
 
-HCL App Scan  --> vulnarbilities 
+HCL App Scan  --> vulnerabilities 
 
 DevSecOps  
 Sonar qube token generate by administration in gui of sonarqube console
@@ -83,7 +98,7 @@ Sonar qube token generate by administration in gui of sonarqube console
 
 SONAR QUBE DASHBOARD TABS :
 
-projects -->contain all projects list
+projects -->contain all projects list 
 issues --> will show all issues in the code developer need to fix those issues
 rules --> to generate the report it will check all the rules and should be satisfied
 quality profiles: [default / custom]

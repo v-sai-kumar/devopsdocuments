@@ -1,6 +1,6 @@
-git -->distributed  version control system 
+git --> distributed  version control system 
 
-working environments--> dev ,qa,uat,sit(system integration testing ),performance testing
+working environments--> dev ,qa,uat[user acceptance testing],sit(system integration testing ),performance testing
 
 Topics --> Git init,add,status,commit -m "msg",log,push origin,branch,branch branchname,
 checkout branchname,clone,remote add fb(alias name) githuburl,remote -v,show commitid,show --pretty="" --name-only commitid,clean.clean -f,reset(SA TO WA),reset filename,
@@ -14,8 +14,9 @@ git revert commitid (updated content , files going to delete in particular commi
 
 git remote add fb(alias name) githuburl --> change url name to shortcut name
 $ git remote -v
-origin  https://github.com/v-sai-kumar/maven-standalone-application.git (fetch)
-origin  https://github.com/v-sai-kumar/maven-standalone-application.git (push)
+fb  https://github.com/v-sai-kumar/maven-standalone-application.git (fetch)
+fb  https://github.com/v-sai-kumar/maven-standalone-application.git (push)
+note : here fb is alias name for github repo url
 
 git show commitid --> show commit details 
 git show --pretty="" --name-only commitid --> displays file name only 
@@ -29,7 +30,7 @@ git add . , * , filename --> used to bring from staging area to indexing area
 git commit -m "anymsgtypehere" -->it will commit in local repo
 git log --> will display commit history
 git push origin --> local to remote changes will be pushed 
-git branch branchname --> used to change between branches 
+git branch branchname --> used to create branch and change branch
 git branch --> used to display branches
 git checkout branchname --> switch to that branch
 git commit -m "feature branch msg wrong commit" -->commit files which are in staging area 

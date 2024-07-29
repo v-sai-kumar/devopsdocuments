@@ -22,6 +22,29 @@ in slave add autherized key of master node so both can communicate each other
 so we can install required softwares and remove , update etcc... by remotly from master node it self with out logging manully into slave node and install...
 playbook --> keep all modules , collections  in a yaml file and run that file
 
+ansible varibles --> palylevel , tasklevel,commandline , inventory ,file level , prompt level these are types of varibles we can use 
+data types --> int , boolen, mapping, list 
+vars:
+- age: 30
+-name: "sai"
+-isdevops: true
+- skills:
+  - aws: 3
+  - devops: 3
+  - docker: 3
+- experience:
+  - aws
+  - devops
+  - docker
+tasks:
+- name: print varibles
+  debug:
+    msg: "{{items}}"
+  - loop:
+    - age
+    -  skills
+    - isdevops
+modules are used to configure the servers by using linux commands in reallity anisible runs by using linux commands only but we use modules to specify commands
 ansible.builtin.user
                 stats
                 yum
@@ -33,6 +56,37 @@ ansible.builtin.user
                 service
                 shell  # module used to execute the commands inside the server you can get the access to user environment and varible
                 command --> used for linux commands you may get the access to user environment and varible
+  ROLES
+  -----
+Roles are used to allign the files in a proper directory and reuse the common files for required applications
+Roles directory structure :--
+Role --> inventory , main.yml 
+ |
+ |  common , catalogue , payment these are sub folders in role folder act as main folder above 
+ v
+ common  --> common files for all services like systemd.yml, python.yml , app-installs.yml , service.yml 
+ catalogue --> in folders we have files/ tasks like this we have directories --> in files we have catalogue.service file and in tasks we have main.yml file
+ 
+ shipping  --> in folders we have files/ tasks like this we have directories --> in files we have shipping.service file and in tasks we have main.yml file
+ payment --> in folders we have files/ tasks like this we have directories --> in files we have payment.service file and in tasks we have main.yml file
+ 
+ # ROLES EXAMPLE 
+ - name: install python
+   importrole:
+     name: common # here common is file in role folder
+     tasks_from: python
+ - name: install dependencies
+   command: pip 3.6 install -r requirement.txt
+   args:
+     chdir: /app
+  - name: start application
+    importrole:
+     name: common # here common is file in role folder
+     tasks_from: systemd_setup
+we have minimzed the microservice code by using roles concept 
+we have reuse the code and reduced the duplicate code 
+we can refer the files from common and use here 
+
                 
 YAML SYNTAX
 -----------

@@ -14,29 +14,29 @@ PostgreSQL: 5432
 
 Supports multiple browsers (IE, Microsoft Edge, FF, Chrome, Safari)
 
-Sonar qube uses -->It will identifies the below category of issues.
+Sonar Qube uses -->It will identifies the below category of issues.
 
 Duplicated code 
 Coding standards industry coding standards
-code coverage [80%]
-Unit tests
-Complex code
-Comments
+code coverage [80%] minimum 
+Unit tests 
+Complex code 
+Comments 
 Potential Bugs 
 Architecture & Design
 
 Maven/Tomcat/-> Developed using Java - supports only Java  programing language
-SonarQube/Nexus/Jenkins -> Developed using this Java -> Supports multiple  Langs.. 
+SonarQube/Nexus/Jenkins -> Developed using this Java -> Supports multiple  programing Langs.. 
 
 -->Relational DBS
 Oracle 
-my sql
-post gear
+my sql  --> 3306
+post gear sql --> 5432
 MS SQL Server
-DB2
+DB2 
 
 is SQL Database?
-Yes, SQL (Structured Query Language) is not a database itself but a standardized programming language specifically designed for managing and manipulating relational databases. SQL is used to perform tasks such as querying, updating, inserting, and deleting data in a database. It also includes commands for creating and modifying database structures, such as tables, indexes, and views.
+No, SQL (Structured Query Language) is not a database itself but a standardized programming language specifically designed for managing and manipulating relational databases. SQL is used to perform tasks such as querying, updating, inserting, and deleting data in a database. It also includes commands for creating and modifying database structures, such as tables, indexes, and views.
 
 Databases that use SQL for these operations are referred to as SQL databases or relational databases. Examples of SQL databases include:
 
@@ -79,9 +79,10 @@ admin admin  = username password
 Tomcat/Jboss/Wildfly/Jenkins 8080 I
 Nexus/ Jfrog artifactiry --> 8081
 SonarQube -> 9000
-MySQL DB 3306 
+MySQL DB --> 3306 
+Postgre Sql --> 33006
 
-In pom.xml update ip address  , token
+In pom.xml update ip address , token
 <sonar.login> tag use for token update
 
 mvn package 
@@ -105,11 +106,11 @@ quality profiles: [default / custom]
 
 10 rules / 30 rules like this we use. Devops engineer only create the quality profiles
 
-login soanar console --> create custom quality profile --> create click -->new profile
+login sonar console --> create custom quality profile --> create click -->new profile
 
-(name own)-->language (own) -->create click after login quliy profile we see rules --> click on activate more -->activate rules
+(name own)-->language (own) -->create click after login quality profile we see rules --> click on activate more -->activate rules
 
-what ever we want --> make as default now project will use this qulaity profiel only
+what ever we want --> make as default now project will use this qulaity profile only
 
 quality profiles --> collection of rules we are going to apply while execting the sonarqube code 
 
@@ -118,6 +119,6 @@ quality gates --> collection of conditions which we are going to apply while exe
 login sonarqube --> add quality gate-->name own -->add condition-->give metrics and error %-->if that condition failes project will fail Executing
 
 Rules
-Quality Profiles
-Quality Gates
-Users Creation
+Quality Profiles  --> rules
+Quality Gates --> conditions
+Users Creation 

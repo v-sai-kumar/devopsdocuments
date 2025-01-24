@@ -22,8 +22,10 @@ schedule build
 blue ocean--> completely changes the gui console of jenkins
 
 pulbish over ssh --> 
+
 ThinBackup --> partial backup of jobs
 
+var/lib/workspace --> default storage for jenkins
 
 Build Name Setter--> custom build name we can set in place of secquence no's
 restart
@@ -59,7 +61,8 @@ same as job level access but we give all Access
 .............
 thin backup --> used to take jobs,plugins, files etc.. backup for every minute
 if we backup now it will create a folder within that minute if we click n no of times on specific minute it will overwrite thats it
-back up types--> full backup every time it will take backup, differntial backup when ever changes are there then only backup will take
+back up types--> full backup every time it will take backup, 
+differntial backup when ever changes are there then only backup will take
 real time backup sst for every 1 hr and 50 backups we take (count may change vary on requirements)
 
 Scripted pipeline
@@ -76,7 +79,7 @@ in master node only we install jenkins
 
 in all master and slave nodes we install java to execute jobs and git also
 
-if we run job in slave node code is stored in slave inode only
+if we run job in slave node code is stored in slave node only
 
 if we install global tools in master node it is applicable for slave also
 
@@ -86,7 +89,7 @@ we can give same label name but name of slave should be unique
 
 slave node working direcory creates
 
-remoting  remoting.jar directories we can see  when node succesfully connected tools workspace --> after 1st run of job
+remoting  remoting.jar directories we can see  when node succesfully connected tools workspace --> after 1st run of job it will display directory like var/lib/workspace/
 
 
 slave creation
@@ -247,7 +250,7 @@ java -jar jenkins-cli.jar -auth mithuntechnologies:11ffceb8ea06e043896476ea48c8d
 java -jar jenkins-cli.jar -auth mithuntechnologies:11ffceb8ea06e043896476ca48c8d46ad8 -s
 
 http://3.110.42.155:9980 -webSocket list-jobs
-for every job we create a shell script to trigger autimatically based on requirement 
+for every job we create a shell script to trigger automatically based on requirement 
 
 Migration of jenkins 
 --------------------

@@ -54,10 +54,10 @@ SMTP-25
 MySQL 3306xml mcat -8080
 wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.59/bin/apache-tomcat-9.
 
-ln -s /opt/apache-tomcat-9.0.59/bin/startup.sh /usr/bin/startTomcat ln -s /opt/apache-tomcat-9.0.59/bin/shutdown.sh /usr/bin/stopTomcat
+ln -s /opt/apache-tomcat-9.0.59/bin/startup.sh /usr/bin/startTomcat ln -s /opt/apache-tomcat-9.0.59/bin/shutdown.sh /usr/bin/stopTomcat  ---> used to create a soft link access from any where
 
 http://65.0.109.190:8080 
-ctrl shift deleted --> to delete cookies
+ctrl shift deleted --> to delete cookies 
 
 conf
 tomcat-users.xml
@@ -65,12 +65,12 @@ context.xml  --> used to give access to manager /host  consoles
 
 mithuntechnologies ->
 manager-gui: Server Status and Manager App
-admin-gui: Host Manager
-Tomcat/Jboss --> Sama machine
+admin-gui: Host Manager 
+Tomcat/Jboss --> Same machine
 
 server.xml give 
 1000
-0- 1023-> Reserved
+0- 1023-> Reserved ports
 0-65535 --> total port range 
-netstat is used to see port working fine or not 
+netstat is used to see port working fine or not in linix and we can use telnet to access the privat netwrok securely if we have permission
 ps -ef | grep (processid) --> used to see process working fine or not 

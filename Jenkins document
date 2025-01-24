@@ -6,22 +6,22 @@ websphere Deployer--> to deploy IBM WebSphere Application Server, IBM WebSphere 
 
 jacoco-->to generate code coverage of java projects
 ssh agent
-email notification
+email notification if build fail , success , aborted
 
-ansi colur pulgin for stages 
+ansi colur pulgin for stages view 
 
 audit trail->details of which user trigger, delete, created the job all actions is saved in this
 
 sonarqube scanner--> directly configure in jenkins dashboard
-docker also configure with docker registry cred
+docker also configure with docker registry credientials
 and kuberntes also configure 
 
 job config history --> which user config, what cofig, every thing history is stored in this we can restore back old configs also by using restore project option in this plugin
 schedule build
 
-blue ocean--> completely changes the gui console
+blue ocean--> completely changes the gui console of jenkins
 
-pulbish over ssh -->
+pulbish over ssh --> 
 ThinBackup --> partial backup of jobs
 
 
@@ -38,15 +38,15 @@ change default port no
 from 8080 to 9398
 cd usr/lib/systemd/system/jenkins.service --> 
 change port No
-systemctl daemon-reload
-Systemctl restart jenkins
+systemctl daemon-reload  -->reload new changes 
+Systemctl restart jenkins --> restart jenkins
 
 jenkins security
 ------------------
 
-create users-->type of access to users-->we give project based authorizatin stategey, LDAP--> view access, build access, admin access, edit view access
+create users-->type of access to users-->we give project based authorizatin stategey , LDAP--> view access, build access, admin access, edit view access
 
-provide specific job level access
+provide specific job level access 
 
 go to admin access go to particular job enable project based secuirty (we see only when project based authorizatin stategey is given )
 click on add user add user name give required access to them 
@@ -68,7 +68,7 @@ Declarative pipeline
 master slave architecture
 --------------------------
 
-1 master node 
+1 master nodes
 
 2 slave nodes 
 

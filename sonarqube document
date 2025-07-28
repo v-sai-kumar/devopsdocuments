@@ -80,7 +80,7 @@ Tomcat/Jboss/Wildfly/Jenkins 8080 I
 Nexus/ Jfrog artifactiry --> 8081
 SonarQube -> 9000
 MySQL DB --> 3306 
-Postgre Sql --> 33006
+Postgre Sql --> 5432
 
 In pom.xml update ip address , token
 <sonar.login> tag use for token update
